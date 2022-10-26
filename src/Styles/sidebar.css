@@ -1,0 +1,16 @@
+.submenu {
+    color: white;
+}
+
+.submenu:hover {
+    color: black;
+}
+
+.menu {
+    color: white;
+    background-color: rgb(39, 41, 61, 1);
+}
+
+.menu:hover {
+    color: black;
+}
