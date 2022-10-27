@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 function sidebar() {
 
     return (
-        <div id='dashboard' style={{ display: 'flex', height: '100%' }}>
+        <div id='' style={{ display: 'flex', height: '100%' }}>
             <Sidebar backgroundColor='rgb(39, 41, 61, 1)' style={{ 'height': '100vh' }}>
                 <Menu >
                     <MenuItem disabled={true} style={{ "color": 'white', 'marginBottom': 25, 'textAlign': 'center' }} >Dashboard</MenuItem>
@@ -20,7 +20,7 @@ function sidebar() {
                     <MenuItem className='menu'> Menu 5 </MenuItem>
                 </Menu>
             </Sidebar >
-            
+
             <Routes>
                 <Route exact path='/Menu1' element={<Content></Content>}></Route>
             </Routes>
