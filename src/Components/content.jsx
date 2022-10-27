@@ -1,6 +1,21 @@
 import React from 'react';
-import { useTable, useSortBy } from 'react-table';
+import { useTable, useFilters } from 'react-table';
 
+function DefaultColumnFilter({
+    column: { filterValue, preFilteredRows, setFilter },
+}) {
+    const count = preFilteredRows.length
+
+    return (
+        <input
+            value={filterValue || ''}
+            onChange={e => {
+                setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+            }}
+            placeholder={`${count} Data Ditemukan...`}
+        />
+    )
+}
 function Content() {
     // Data Dummy.
     const data = React.useMemo(() =>
@@ -53,8 +68,7 @@ function Content() {
                 columns: [
                     {
                         Header: 'Name',
-                        accessor: 'name',
-                        sortType: 'basic'
+                        accessor: 'name'
                     },
                     {
                         Header: 'Address',
@@ -79,13 +93,21 @@ function Content() {
         []
     )
 
+    const defaultColumn = React.useMemo(
+        () => ({
+            // Let's set up our default Filter UI
+            Filter: DefaultColumnFilter,
+        }),
+        []
+    )
+
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
         rows,
         prepareRow,
-    } = useTable({ columns, data }, useSortBy)
+    } = useTable({ columns, data, defaultColumn }, useFilters,)
 
     return (
         <div className='text-center'>
@@ -94,16 +116,14 @@ function Content() {
                     {headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())}
+                                <th {...column.getHeaderProps()}
                                     style={{
                                         border: 'solid 2px black',
                                         background: 'white',
                                         color: 'black',
                                         fontWeight: 'bold',
                                     }}>{column.render('Header')}
-                                    <span>
-                                        {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                                    </span>
+                                    <div>{column.canFilter ? column.render('Filter') : null}</div>
                                 </th>
                             ))}
                         </tr>
