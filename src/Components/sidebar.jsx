@@ -1,5 +1,6 @@
 import '../Styles/sidebar.css'
 import Content from './Kasus';
+import AddBerita from './AddBerita';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -16,7 +17,7 @@ function sidebar() {
                         <MenuItem className='menu text-center'><i className="fa fa-trash" aria-hidden="true"></i>   Hapus Data</MenuItem>
                     </SubMenu>
                     <SubMenu className='submenu' label='Berita'>
-                        <MenuItem className='menu text-center'><i className='fa fa-plus'></i>  Tambah Data</MenuItem>
+                        <MenuItem routerLink={<Link to="/TambahBerita"></Link>} className='menu text-center'><i className='fa fa-plus'></i>  Tambah Data</MenuItem>
                         <MenuItem className='menu text-center'><i className="fa fa-trash" aria-hidden="true"></i>   Hapus Data</MenuItem>
                     </SubMenu>
                     <MenuItem routerLink={<Link to='/Kasus' />} className='menu'>Kasus</MenuItem>
@@ -26,7 +27,7 @@ function sidebar() {
 
             <Routes>
                 <Route exact path='/Kasus' element={<Content></Content>}></Route>
-                <Route exact path='/edit/kasus'></Route>
+                <Route exact path='/TambahBerita' element={<AddBerita></AddBerita>}></Route>
             </Routes>
 
         </div>
