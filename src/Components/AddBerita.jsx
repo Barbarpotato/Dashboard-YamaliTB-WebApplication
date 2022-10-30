@@ -39,7 +39,7 @@ function AddBerita() {
                 </div>
                 <div className='py-4'>
                     <button style={{ width: '500px' }} className='rounded bg-green-500 text-white mt-12 py-4 px-4 text-lg' type='submit'>
-                        Tambah Data</button>
+                        Publikasi Berita</button>
                 </div>
             </form>
         </div>

@@ -75,7 +75,7 @@ function Content() {
     const columns = React.useMemo(
         () => [
             {
-                Header: 'User Info',
+                Header: 'Data Kasus',
                 columns: [
                     {
                         Header: 'Name',
@@ -85,11 +85,6 @@ function Content() {
                         Header: 'Address',
                         accessor: 'address',
                     },
-                ],
-            },
-            {
-                Header: 'Order Info',
-                columns: [
                     {
                         Header: 'Date',
                         accessor: 'date',
@@ -98,7 +93,7 @@ function Content() {
                         Header: 'Order #',
                         accessor: 'order',
                     }, {
-                        Header: "Edit",
+                        Header: "Ubah",
                         Cell: (tableProps) => (
                             <button
                                 onClick={() => {
@@ -115,7 +110,7 @@ function Content() {
                         )
                     },
                     {
-                        Header: "Delete",
+                        Header: "Hapus",
                         Cell: (tableProps) => (
                             <button onClick={() => {
                                 //! api request needed.
@@ -196,7 +191,8 @@ function Content() {
                                 {headerGroup.headers.map(column => (
                                     <th {...column.getHeaderProps()}
                                         style={{
-                                            border: 'solid 2px black',
+                                            fontSize: '25px',
+                                            border: 'solid 1px black',
                                             background: 'white',
                                             color: 'black',
                                             fontWeight: 'bold',
@@ -213,11 +209,14 @@ function Content() {
                             return (
                                 <tr {...row.getRowProps()}
                                     style={{
-                                        border: 'solid 2px black',
+                                        border: 'solid 1px black',
+                                        backgroundColor: 'white',
                                         color: 'black'
                                     }}>
                                     {row.cells.map(cell => {
-                                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                        return <td {...cell.getCellProps()}
+                                            style={{ fontSize: '20px', padding: '20px 20px 20px 20px' }}
+                                        >{cell.render('Cell')}</td>
                                     })}
                                 </tr>
                             )
