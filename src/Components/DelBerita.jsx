@@ -105,6 +105,7 @@ function DelBerita() {
                                             background: 'white',
                                             color: 'black',
                                             fontWeight: 'bold',
+                                            opacity: 0.6
 
                                         }}>{column.render('Header')}
                                         {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
@@ -124,7 +125,7 @@ function DelBerita() {
 
                                     }}>
                                     {row.cells.map(cell => {
-                                        return <td {...cell.getCellProps()} style={{ fontSize: '20px', padding: '20px 20px 20px 20px' }}>{cell.render('Cell')}</td>
+                                        return <td {...cell.getCellProps()} style={{ border: 'solid 0.5px black', opacity: 0.7, fontSize: '20px', padding: '20px 20px 20px 20px' }}>{cell.render('Cell')}</td>
                                     })}
                                 </tr>
                             )

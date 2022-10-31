@@ -24,7 +24,6 @@ function sidebar() {
                         <MenuItem routerLink={<Link to='/HapusBerita'></Link>} className='menu text-center'><i className="fa fa-trash" aria-hidden="true"></i>   Hapus Data</MenuItem>
                     </SubMenu>
                     <MenuItem routerLink={<Link to='/Kasus' />} className='menu'>Kasus</MenuItem>
-                    <MenuItem className='menu'>Pasien </MenuItem>
                 </Menu>
             </Sidebar >
 

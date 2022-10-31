@@ -2,22 +2,6 @@ import React from 'react';
 import { useTable } from 'react-table';
 import '../Styles/content.css';
 
-// function DefaultColumnFilter({
-//     column: { filterValue, preFilteredRows, setFilter },
-// }) {
-//     const count = preFilteredRows.length
-
-//     return (
-//         <input
-//             value={filterValue || ''}
-//             onChange={e => {
-//                 setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-//             }}
-//             placeholder={`${count} Data Ditemukan...`}
-//         />
-//     )
-// }
-
 function Content() {
 
     // Decide to render edit menu or not.
@@ -32,41 +16,30 @@ function Content() {
     const [data, setData] = React.useState(
         [
             {
-                name: 'Kim Parrish',
-                address: '4420 Valley Street, Garnerville, NY 10923',
-                date: '07/11/2020',
-                order: '87349585892118',
+                tahun: '2021',
+                semester: '1',
+                kabupaten: 'Bulukumba',
+                terduga: '167',
             },
             {
-                name: 'Michele Castillo',
-                address: '637 Kyle Street, Fullerton, NE 68638',
-                date: '07/11/2020',
-                order: '58418278790810',
+                tahun: '2021',
+                semester: '1',
+                kabupaten: 'Jeneponto',
+                terduga: '146',
+            }
+            ,
+            {
+                tahun: '2021',
+                semester: '1',
+                kabupaten: 'Bone',
+                terduga: '5',
             },
             {
-                name: 'Eric Ferris',
-                address: '906 Hart Country Lane, Toccoa, GA 30577',
-                date: '07/10/2020',
-                order: '81534454080477',
-            },
-            {
-                name: 'Gloria Noble',
-                address: '2403 Edgewood Avenue, Fresno, CA 93721',
-                date: '07/09/2020',
-                order: '20452221703743',
-            },
-            {
-                name: 'Darren Daniels',
-                address: '882 Hide A Way Road, Anaktuvuk Pass, AK 99721',
-                date: '07/07/2020',
-                order: '22906126785176',
-            },
-            {
-                name: 'Ted McDonald',
-                address: '796 Bryan Avenue, Minneapolis, MN 55406',
-                date: '07/07/2020',
-                order: '87574505851064',
-            },
+                tahun: '2021',
+                semester: '1',
+                kabupaten: 'Pinrang',
+                terduga: '393',
+            }
         ]
     )
 
@@ -75,25 +48,25 @@ function Content() {
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Data Kasus',
+                Header: 'Data Kasus Kabupaten',
                 columns: [
                     {
-                        Header: 'Name',
-                        accessor: 'name'
+                        Header: 'Tahun',
+                        accessor: 'tahun'
                     },
                     {
-                        Header: 'Address',
-                        accessor: 'address',
+                        Header: 'Semester',
+                        accessor: 'semester',
                     },
                     {
-                        Header: 'Date',
-                        accessor: 'date',
+                        Header: 'Kabupaten/Kota',
+                        accessor: 'kabupaten',
                     },
                     {
-                        Header: 'Order #',
-                        accessor: 'order',
+                        Header: 'Terduga TB',
+                        accessor: 'terduga',
                     }, {
-                        Header: "Ubah",
+                        Header: "Ubah Data",
                         Cell: (tableProps) => (
                             <button
                                 onClick={() => {
@@ -109,30 +82,13 @@ function Content() {
                             </button>
                         )
                     },
-                    {
-                        Header: "Hapus",
-                        Cell: (tableProps) => (
-                            <button onClick={() => {
-                                //! api request needed.
-                                const confirm = window.confirm('Apakah Anda Ingin Menghapus Data ini?')
-                                if (confirm) {
-                                    const dataCopy = [...data];
-                                    dataCopy.splice(tableProps.row.index, 1);
-                                    alert('Data Berhasil Dihapus!');
-                                    setData(dataCopy);
-
-                                }
-                            }}>
-                                <i className="fa fa-trash" aria-hidden="true"></i>
-                            </button>
-                        )
-                    }
                 ],
             },
         ],
         [data]
     )
 
+    // setting up the table properties
     const {
         getTableProps,
         getTableBodyProps,
@@ -141,49 +97,70 @@ function Content() {
         prepareRow,
     } = useTable({ columns, data })
 
+    // handling edit form data
+    const handleEdit = (event) => {
+        const confirm = window.confirm('Yakin Ingin Memperbaharui Data?')
+        if (confirm) {
+            event.preventDefault();
+            alert('Berhasil Memperbaharui Data!');
+            console.log(event.target.elements.tahun);
+            setEdit(false);
+        }
+        else {
+            alert('Menolak Memperbaharui Data!');
+            setEdit(false);
+        }
+        event.preventDefault();
+        //! api request needed.
+        // console.log(event.target.tahun.value);
+    }
+
     return (
         // Ternary Operator. edit is true render the edit comp otherwise render the table.
         //!! edit component still a dummy
         <div className='content'>
-            {edit ? <div className='update'>
-                <form>
-                    <div className='py-4'>
-                        <input className='py-4 px-4 rounded w-96' value={selectData.name} placeholder='unkown' />
+            {edit ? <div className='opacity-80 update mx-[25%] my-[12%] bg-slate-100 rounded-md p-4'>
+                <h1 className='text-center text-xl font-semibold px-2'>Perbaharui Data Kasus</h1>
+                <form onSubmit={handleEdit}>
+                    <div className='flex flex-row'>
+                        <div className='py-4'>
+                            <label>Tahun: </label>
+                            <input name='tahun' className='py-4 px-4 rounded' required pattern='20\d{2}' placeholder={selectData.tahun} />
+                        </div>
+                        <div className='py-4 px-4'>
+                            <label>Semester: </label>
+                            <input name='semester' className='py-4 px-4 rounded' readOnly value={selectData.semester} />
+                        </div>
                     </div>
-                    <div className='py-4'>
-                        <input className='py-4 px-4 rounded w-96' placeholder='unkown' value={selectData.order} />
+                    <div className='flex flex-row'>
+                        <div className='py-4'>
+                            <label>Kabupaten: </label>
+                            <input name='kabupaten' className='py-4 px-4 rounded w-36' readOnly value={selectData.kabupaten} />
+                        </div>
+                        <div className='py-4 px-4'>
+                            <label>Jumlah Terduga: </label>
+                            <input name='terduga' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' placeholder={selectData.terduga} />
+                        </div>
                     </div>
-                    <div className='py-4'>
-                        <button className='rounded w-96 bg-red-500 text-white py-4 px-4 text-lg' type='submit'
-                            onClick={() => {
-                                //! api request needed.
-                                alert('Menolak Memperbaharui Data!');
-                                setEdit(false);
-                            }}>
-                            Batal Perbaharui Data</button>
-                    </div>
-                    <div className='py-4'>
-                        <button className='rounded w-96 bg-green-500 text-white py-4 px-4 text-lg' type='submit'
-                            onClick={() => {
-                                //! api request needed.
-                                const confirm = window.confirm('Yakin Ingin Memperbaharui Data?')
-                                if (confirm) {
-                                    alert('Berhasil Memperbaharui Data!');
-                                    setEdit(false);
-                                }
-                                else {
+                    <div className='flex flex-row'>
+                        <div className='py-4 px-2'>
+                            <button className='rounded w-56 bg-red-500 text-white py-4 px-4 text-lg'
+                                onClick={() => {
+                                    // back to the table component after user reject update data
                                     alert('Menolak Memperbaharui Data!');
                                     setEdit(false);
-                                }
-                            }}>
-                            Perbaharui Data</button>
+                                }}>
+                                Batal Perbaharui Data</button>
+                        </div>
+                        <div className='py-4 px-2'>
+                            <button className='rounded w-56 bg-green-500 text-white py-4 px-4 text-lg' type='submit'>
+                                Perbaharui Data</button>
+                        </div>
                     </div>
-
                 </form>
-            </div>
+            </div >
 
                 :
-
                 <table {...getTableProps()}>
                     <thead>
                         {headerGroups.map(headerGroup => (
@@ -191,6 +168,7 @@ function Content() {
                                 {headerGroup.headers.map(column => (
                                     <th {...column.getHeaderProps()}
                                         style={{
+                                            opacity: 0.6,
                                             fontSize: '25px',
                                             border: 'solid 1px black',
                                             background: 'white',
@@ -215,7 +193,7 @@ function Content() {
                                     }}>
                                     {row.cells.map(cell => {
                                         return <td {...cell.getCellProps()}
-                                            style={{ fontSize: '20px', padding: '20px 20px 20px 20px' }}
+                                            style={{ opacity: 0.7, border: 'solid 0.1px black', fontSize: '20px', padding: '20px 20px 20px 20px' }}
                                         >{cell.render('Cell')}</td>
                                     })}
                                 </tr>
@@ -224,7 +202,7 @@ function Content() {
                     </tbody>
                 </table>
             }
-        </div>
+        </div >
     )
 }
 
