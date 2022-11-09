@@ -1,8 +1,9 @@
 import '../Styles/sidebar.css'
 import Beranda from './Beranda';
+import TambahKasus from './TambahKasus';
 import Content from './Kasus';
-import AddBerita from './AddBerita';
-import DelBerita from './DelBerita';
+import AddInfo from './AddInfo';
+import DeleteInfo from './DeleteInfo';
 
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Routes, Route, Link } from 'react-router-dom';
@@ -16,22 +17,29 @@ function sidebar() {
                     <MenuItem disabled={true} style={{ "color": 'white', 'marginBottom': 25, 'textAlign': 'center' }} >Dashboard</MenuItem>
                     <MenuItem routerLink={<Link to="/Beranda"></Link>} className='menu'>Beranda</MenuItem>
                     <SubMenu className='submenu' label="Artikel">
-                        <MenuItem className='menu text-center'><i className='fa fa-plus'></i>  Tambah Data</MenuItem>
-                        <MenuItem className='menu text-center'><i className="fa fa-trash" aria-hidden="true"></i>   Hapus Data</MenuItem>
+                        <MenuItem routerLink={<Link to='/TambahArtikel'></Link>} className='menu text-center'><i className='fa fa-plus'></i>  Tambah Data</MenuItem>
+                        <MenuItem routerLink={<Link to='/HapusArtikel'></Link>} className='menu text-center'><i className="fa fa-trash" aria-hidden="true"></i>   Hapus Data</MenuItem>
                     </SubMenu>
                     <SubMenu className='submenu' label='Berita'>
                         <MenuItem routerLink={<Link to="/TambahBerita"></Link>} className='menu text-center'><i className='fa fa-plus'></i>  Tambah Data</MenuItem>
                         <MenuItem routerLink={<Link to='/HapusBerita'></Link>} className='menu text-center'><i className="fa fa-trash" aria-hidden="true"></i>   Hapus Data</MenuItem>
                     </SubMenu>
-                    <MenuItem routerLink={<Link to='/Kasus' />} className='menu'>Kasus</MenuItem>
+                    <SubMenu className='submenu' label='Kasus'>
+                        <MenuItem routerLink={<Link to="/TambahKasus"></Link>} className='menu text-center'><i className='fa fa-plus'></i>  Tambah Data</MenuItem>
+                        <MenuItem routerLink={<Link to='/Kasus'></Link>} className='menu text-center'>Hapus & Edit Data</MenuItem>
+                    </SubMenu>
+
                 </Menu>
             </Sidebar >
 
             <Routes>
-                <Route exact path='/Kasus' element={<Content></Content>}></Route>
-                <Route exact path='/TambahBerita' element={<AddBerita></AddBerita>}></Route>
-                <Route exact path='/HapusBerita' element={<DelBerita></DelBerita>}></Route>
+                <Route exact path='/TambahArtikel' element={<AddInfo tipe={'Artikel'}></AddInfo>}></Route>
+                <Route exact path='/TambahBerita' element={<AddInfo tipe={'Berita'}></AddInfo>}></Route>
+                <Route exact path='/HapusArtikel' element={<DeleteInfo tipe={'Artikel'}></DeleteInfo>}></Route>
+                <Route exact path='/HapusBerita' element={<DeleteInfo tipe={'Berita'}></DeleteInfo>}></Route>
                 <Route exact path='/Beranda' element={<Beranda></Beranda>}></Route>
+                <Route exact path='/TambahKasus' element={<TambahKasus></TambahKasus>}></Route>
+                <Route exact path='/Kasus' element={<Content></Content>}></Route>
             </Routes>
 
         </div>

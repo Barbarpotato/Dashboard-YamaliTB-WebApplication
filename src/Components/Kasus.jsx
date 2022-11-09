@@ -82,6 +82,24 @@ function Content() {
                             </button>
                         )
                     },
+                    {
+                        Header: "Hapus",
+                        Cell: (tableProps) => (
+                            <button onClick={() => {
+                                //! api request needed.
+                                const confirm = window.confirm('Apakah Anda Ingin Menghapus Data ini?')
+                                if (confirm) {
+                                    const dataCopy = [...data];
+                                    dataCopy.splice(tableProps.row.index, 1);
+                                    alert('Data Berhasil Dihapus!');
+                                    setData(dataCopy);
+
+                                }
+                            }}>
+                                <i className="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        )
+                    }
                 ],
             },
         ],
@@ -161,7 +179,8 @@ function Content() {
             </div >
 
                 :
-                <table {...getTableProps()}>
+
+                <table {...getTableProps()} >
                     <thead>
                         {headerGroups.map(headerGroup => (
                             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -201,6 +220,7 @@ function Content() {
                         })}
                     </tbody>
                 </table>
+
             }
         </div >
     )

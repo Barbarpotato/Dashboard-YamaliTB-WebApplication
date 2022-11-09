@@ -1,12 +1,25 @@
 import React from 'react';
 
-function AddBerita() {
+function AddBerita({ tipe }) {
+
+    const handleAddArtikel = (event) => {
+        //! API REQUEST NEEDED
+        event.preventDefault();
+        alert('Artikel Berhasil ditambah');
+    }
+
+    const handleAddBerita = (event) => {
+        //! API REQUEST NEEDED
+        event.preventDefault();
+        alert('Berita berhasil ditambah');
+    }
+
     return (
         <div className='flex ' style={{ overflowY: 'scroll', height: '100vh', width: '100%' }}>
             <div className='mx-[20%]'>
-                <form >
+                <form onSubmit={tipe === 'Artikel' ? handleAddArtikel : handleAddBerita}>
                     <div className='flex flex-col'>
-                        <h1 className='text-3xl py-12 font-bold'>Tambah Berita Halaman di Website</h1>
+                        <h1 className='text-3xl py-12 font-bold'>Tambah {tipe === 'Artikel' ? 'Artikel' : 'Berita'} Halaman</h1>
                     </div>
                     <div className='flex flex-row'>
                         <div className='px-2 flex flex-col items-start'>

@@ -2,9 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { useTable } from 'react-table';
 import '../Styles/content.css';
 
-function DelBerita() {
+function DelBerita({ tipe }) {
 
-    const [selectData, setSelectData] = React.useState({});
+
 
     const [data, setData] = useState([
         {
@@ -27,7 +27,64 @@ function DelBerita() {
         }
     ]);
 
-    const columns = useMemo(() => [
+    // Tabel Artikel
+    const columnsArtikel = useMemo(() => [
+        {
+            Header: 'Data Publikasi Artikel',
+            columns: [
+                {
+                    Header: 'Tanggal',
+                    accessor: 'tanggal'
+                },
+                {
+                    Header: 'Waktu',
+                    accessor: 'waktu'
+                },
+                {
+                    Header: 'Judul',
+                    accessor: 'judul'
+                },
+                {
+                    Header: 'Deksripsi 1',
+                    accessor: 'isi1'
+                },
+                {
+                    Header: 'Gambar 1',
+                    accessor: 'gambar1'
+                },
+                {
+                    Header: 'Deskripsi 2',
+                    accessor: 'isi2'
+                },
+                {
+                    Header: 'Gambar 2',
+                    accessor: 'gambar2'
+                },
+
+                {
+                    Header: "Hapus",
+                    Cell: (tableProps) => (
+                        <button onClick={() => {
+                            //! api request needed.
+                            const confirm = window.confirm('Apakah Anda Ingin Menghapus Data ini?')
+                            if (confirm) {
+                                const dataCopy = [...data];
+                                dataCopy.splice(tableProps.row.index, 1);
+                                alert('Data Berhasil Dihapus!');
+                                setData(dataCopy);
+
+                            }
+                        }}>
+                            <i className="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    )
+                }
+            ]
+        }
+    ], [data])
+
+    // Tabel Berita
+    const columnsBerita = useMemo(() => [
         {
             Header: 'Data Publikasi Berita',
             columns: [
@@ -81,6 +138,8 @@ function DelBerita() {
             ]
         }
     ], [data])
+
+    const columns = tipe === 'Artikel' ? columnsArtikel : columnsBerita;
 
     const {
         getTableProps,
