@@ -1,119 +1,35 @@
-import React from 'react';
-import { useTable } from 'react-table';
+import React, { useState, useEffect } from 'react';
 import '../Styles/content.css';
+import '../Styles/table.css';
+import axios from 'axios';
 
 function Content() {
 
+    // state for controlling the ui showed in the client-side.
+    const [isLoading, setLoading] = useState(true);
+
     // Decide to render edit menu or not.
-    const [edit, setEdit] = React.useState(false);
+    const [edit, setEdit] = useState(false);
 
     // pick up the specific data to edit.
-    const [selectData, setSelectData] = React.useState({});
+    const [selectData, setSelectData] = useState({});
 
-    //! Data Dummy.
-    //! api request needed.
-    // Row Data.
-    const [data, setData] = React.useState(
-        [
-            {
-                tahun: '2021',
-                semester: '1',
-                kabupaten: 'Bulukumba',
-                terduga: '167',
-            },
-            {
-                tahun: '2021',
-                semester: '1',
-                kabupaten: 'Jeneponto',
-                terduga: '146',
-            }
-            ,
-            {
-                tahun: '2021',
-                semester: '1',
-                kabupaten: 'Bone',
-                terduga: '5',
-            },
-            {
-                tahun: '2021',
-                semester: '1',
-                kabupaten: 'Pinrang',
-                terduga: '393',
-            }
-        ]
-    )
+    // data that are going to showed to the client-side.
+    const [data, setData] = useState();
 
-    //! Data Dummy.
-    // Column Table
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'Data Kasus Kabupaten',
-                columns: [
-                    {
-                        Header: 'Tahun',
-                        accessor: 'tahun'
-                    },
-                    {
-                        Header: 'Semester',
-                        accessor: 'semester',
-                    },
-                    {
-                        Header: 'Kabupaten/Kota',
-                        accessor: 'kabupaten',
-                    },
-                    {
-                        Header: 'Terduga TB',
-                        accessor: 'terduga',
-                    }, {
-                        Header: "Ubah Data",
-                        Cell: (tableProps) => (
-                            <button
-                                onClick={() => {
-                                    //! api request needed.
-                                    const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
-                                    if (confirm) {
-                                        console.log(tableProps.row.values);
-                                        setSelectData(tableProps.row.values);
-                                        setEdit(true);
-                                    }
-                                }}>
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </button>
-                        )
-                    },
-                    {
-                        Header: "Hapus",
-                        Cell: (tableProps) => (
-                            <button onClick={() => {
-                                //! api request needed.
-                                const confirm = window.confirm('Apakah Anda Ingin Menghapus Data ini?')
-                                if (confirm) {
-                                    const dataCopy = [...data];
-                                    dataCopy.splice(tableProps.row.index, 1);
-                                    alert('Data Berhasil Dihapus!');
-                                    setData(dataCopy);
-
-                                }
-                            }}>
-                                <i className="fa fa-trash" aria-hidden="true"></i>
-                            </button>
-                        )
-                    }
-                ],
-            },
-        ],
-        [data]
-    )
-
-    // setting up the table properties
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = useTable({ columns, data })
+    // Calling the api.
+    useEffect(() => {
+        // Runs on the first render
+        // And any time any dependency value changes
+        axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_kasus.php')
+            .then((response) => {
+                setData(response.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                return err;
+            });
+    }, []);
 
     // handling edit form data
     const handleEdit = (event) => {
@@ -129,16 +45,24 @@ function Content() {
             setEdit(false);
         }
         event.preventDefault();
-        //! api request needed.
-        // console.log(event.target.tahun.value);
+        //! api request needed. METHOD UPDATE
+        // console.log(event.target.kasus.value);
+    }
+
+    if (isLoading) {
+
+        return <div className='text-center'>
+            <h1 className='text-4xl text-center'>Memuat Data...</h1>
+        </div>
     }
 
     return (
+
         // Ternary Operator. edit is true render the edit comp otherwise render the table.
         //!! edit component still a dummy
-        <div className='content'>
+        <div div className='content' >
             {edit ? <div className='opacity-80 update mx-[25%] my-[12%] bg-slate-100 rounded-md p-4'>
-                <h1 className='text-center text-xl font-semibold px-2'>Perbaharui Data Kasus</h1>
+                <h1 className='text-center text-xl font-semibold px-2' > Perbaharui Data Kasus</h1>
                 <form onSubmit={handleEdit}>
                     <div className='flex flex-row'>
                         <div className='py-4'>
@@ -147,18 +71,45 @@ function Content() {
                         </div>
                         <div className='py-4 px-4'>
                             <label>Semester: </label>
-                            <input name='semester' className='py-4 px-4 rounded' readOnly value={selectData.semester} />
+                            <input name='semester' className='py-4 px-4 rounded' required value={selectData.semester} />
                         </div>
                     </div>
                     <div className='flex flex-row'>
                         <div className='py-4'>
                             <label>Kabupaten: </label>
-                            <input name='kabupaten' className='py-4 px-4 rounded w-36' readOnly value={selectData.kabupaten} />
+                            <input name='kabupaten' className='py-4 px-4 rounded w-36' required value={selectData.kabupatenkota} />
                         </div>
                         <div className='py-4 px-4'>
                             <label>Jumlah Terduga: </label>
-                            <input name='terduga' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' placeholder={selectData.terduga} />
+                            <input name='terduga' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' placeholder={selectData.terdugaTb} />
                         </div>
+                    </div>
+                    <div className='flex flex-row'>
+                        <div className='py-4'>
+                            <label>KasusTb: </label>
+                            <input name='kasus' className='py-4 px-4 rounded w-36' required value={selectData.kasusTb} />
+                        </div>
+                        <div className='py-4 px-4'>
+                            <label>Berhasil: </label>
+                            <input name='berhasil' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' placeholder={selectData.berhasil} />
+                        </div>
+                    </div>
+                    <div className='flex flex-row'>
+                        <div className='py-4'>
+                            <label>Meninggal: </label>
+                            <input name='meninggal' className='py-4 px-4 rounded w-36' required value={selectData.meninggal} />
+                        </div>
+                        <div className='py-4 px-4'>
+                            <label>Defaul: </label>
+                            <input name='defaul' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' placeholder={selectData.defaul} />
+                        </div>
+                    </div>
+                    <div className='flex flex-row'>
+                        <div className='py-4'>
+                            <label>Gagal: </label>
+                            <input name='gagal' className='py-4 px-4 rounded w-36' required value={selectData.gagal} />
+                        </div>
+
                     </div>
                     <div className='flex flex-row'>
                         <div className='py-4 px-2'>
@@ -179,50 +130,63 @@ function Content() {
             </div >
 
                 :
-
-                <table {...getTableProps()} >
+                <table  >
                     <thead>
-                        {headerGroups.map(headerGroup => (
-                            <tr {...headerGroup.getHeaderGroupProps()}>
-                                {headerGroup.headers.map(column => (
-                                    <th {...column.getHeaderProps()}
-                                        style={{
-                                            opacity: 0.6,
-                                            fontSize: '25px',
-                                            border: 'solid 1px black',
-                                            background: 'white',
-                                            color: 'black',
-                                            fontWeight: 'bold',
-                                        }}>{column.render('Header')}
-                                        {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
-                                    </th>
-                                ))}
+                        <tr>
+                            <th className='p-2 text-xl'>Id</th>
+                            <th className='border border-slate-600 p-2 text-xl'>Tahun</th>
+                            <th className='border border-slate-600 p-2 text-xl'>Semester</th>
+                            <th className='border border-slate-600 p-2 text-xl'>Kabupaten/kota</th>
+                            <th className='border border-slate-600 p-2 text-xl'>TerdugaTb</th>
+                            <th className='border border-slate-600 p-2 text-xl'>KasusTb</th>
+                            <th className='border border-slate-600 p-2 text-xl'>Berhasil</th>
+                            <th className='border border-slate-600 p-2 text-xl'>Meninggal</th>
+                            <th className='border border-slate-600 p-2 text-xl'>Defaul</th>
+                            <th className='border border-slate-600 p-2 text-xl'>Gagal</th>
+                            <th className='border border-slate-600 p-2 text-xl'>Ubah Data</th>
+                            <th className='p-2 text-xl'>Hapus Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((item, idx) => (
+                            <tr key={idx}>
+                                <td className='border border-slate-700 text-xl'>{item.id}</td>
+                                <td className='border border-slate-700 text-xl'>{item.tahun}</td>
+                                <td className='border border-slate-700 text-xl'>{item.semester}</td>
+                                <td className='border border-slate-700 text-xl'>{item.kabupatenkota}</td>
+                                <td className='border border-slate-700 text-xl'>{item.terdugaTb}</td>
+                                <td className='border border-slate-700 text-xl'>{item.kasusTb}</td>
+                                <td className='border border-slate-700 text-xl'>{item.berhasil}</td>
+                                <td className='border border-slate-700 text-xl'>{item.meninggal}</td>
+                                <td className='border border-slate-700 text-xl'>{item.defaul}</td>
+                                <td className='border border-slate-700 text-xl'>{item.gagal}</td>
+                                <td className='border border-slate-700 text-xl'><button onClick={() => {
+                                    const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
+                                    if (confirm) {
+                                        setSelectData({
+                                            id: item.id, tahun: item.tahun, semester: item.semester,
+                                            kabupatenkota: item.kabupatenkota, terdugaTb: item.terdugaTb,
+                                            kasusTb: item.kasusTb, berhasil: item.berhasil, meninggal: item.meninggal,
+                                            defaul: item.defaul, gagal: item.gagal
+                                        });
+                                        setEdit(true);
+                                    }
+                                }}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Ubah</button></td>
+                                <td className='border border-slate-700 text-xl'><button onClick={() => {
+                                    const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
+                                    if (confirm) {
+                                        setSelectData({
+                                            id: item.id
+                                        });
+                                        setEdit(true);
+                                    }
+                                }}><i className="fa fa-eraser" aria-hidden="true"></i> Hapus</button></td>
                             </tr>
                         ))}
-                    </thead>
-                    <tbody {...getTableBodyProps()}>
-                        {rows.map(row => {
-                            prepareRow(row)
-                            return (
-                                <tr {...row.getRowProps()}
-                                    style={{
-                                        border: 'solid 1px black',
-                                        backgroundColor: 'white',
-                                        color: 'black'
-                                    }}>
-                                    {row.cells.map(cell => {
-                                        return <td {...cell.getCellProps()}
-                                            style={{ opacity: 0.7, border: 'solid 0.1px black', fontSize: '20px', padding: '20px 20px 20px 20px' }}
-                                        >{cell.render('Cell')}</td>
-                                    })}
-                                </tr>
-                            )
-                        })}
                     </tbody>
                 </table>
-
             }
-        </div >
+        </div>
     )
 }
 

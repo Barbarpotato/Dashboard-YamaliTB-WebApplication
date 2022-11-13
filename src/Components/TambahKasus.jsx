@@ -1,11 +1,19 @@
+import axios from "axios";
+import '../Styles/content.css';
+
 function AddKasus() {
 
-    const handleAddKasus = () => {
-
+    //! POST METHOD REQUIERD.
+    const handleAddKasus = (event) => {
+        event.preventDefault();
+        axios.post('https://yayasanmptb.or.id.yamalitb.or.id/admin/', { name: 'darmawan' }).then(resp => {
+            console.log(resp);
+        })
+        console.log('test!')
     }
 
     return (
-        <div className='opacity-80 update mx-[25%] my-[12%] bg-slate-100 rounded-md p-4'>
+        <div className='opacity-80 update mx-[25%] my-7 bg-slate-100 rounded-md p-4'>
             <h1 className='text-center text-xl font-semibold px-2'>Tambah Data Kasus</h1>
             <form onSubmit={handleAddKasus}>
                 <div className='flex flex-row'>
@@ -27,6 +35,33 @@ function AddKasus() {
                         <label>Jumlah Terduga: </label>
                         <input name='terduga' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' />
                     </div>
+                </div>
+                <div className='flex flex-row'>
+                    <div className='py-4'>
+                        <label>KasusTb: </label>
+                        <input name='kasus' className='py-4 px-4 rounded w-36' required />
+                    </div>
+                    <div className='py-4 px-4'>
+                        <label>Berhasil: </label>
+                        <input name='berhasil' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' />
+                    </div>
+                </div>
+                <div className='flex flex-row'>
+                    <div className='py-4'>
+                        <label>Meninggal: </label>
+                        <input name='meninggal' className='py-4 px-4 rounded w-36' required />
+                    </div>
+                    <div className='py-4 px-4'>
+                        <label>Defaul: </label>
+                        <input name='defaul' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' />
+                    </div>
+                </div>
+                <div className='flex flex-row'>
+                    <div className='py-4'>
+                        <label>Gagal: </label>
+                        <input name='gagal' className='py-4 px-4 rounded w-36' required />
+                    </div>
+
                 </div>
                 <div className='flex flex-row'>
 

@@ -1,0 +1,15 @@
+tbody tr:nth-child(odd) {
+    background-color: whitesmoke;
+    color: black;
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgb(230, 230, 230, 1);
+    color: black;
+}
+
+table {
+    background-color: rgb(39, 41, 61, 1);
+    color: rgb(230, 230, 230, 1);
+    border-radius: 10px;
+}
