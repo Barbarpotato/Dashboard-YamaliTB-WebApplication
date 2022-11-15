@@ -9,6 +9,7 @@ import TambahKasus from './TambahKasus';
 import Content from './Kasus';
 import AddInfo from './AddInfo';
 import DeleteInfo from './DeleteInfo';
+import AddBerita from './AddInfo';
 
 function Sidebars() {
 
@@ -18,6 +19,9 @@ function Sidebars() {
     // Artikel data that are going to showed to the client-side.
     const [artikel, setArtikel] = useState();
 
+    // Berita data that are going to showed to the client-side.
+    const [berita, setBerita] = useState();
+
     // Calling the artikel data api.
     useEffect(() => {
         // Runs on the first render
@@ -25,11 +29,20 @@ function Sidebars() {
         axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_artikel.php')
             .then((response) => {
                 setArtikel(response.data);
-                setLoading(false);
             })
             .catch((err) => {
                 return err;
             });
+
+        axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_berita.php')
+            .then((response) => {
+                setBerita(response.data);
+            })
+            .catch((err) => {
+                return err;
+            });
+
+        setLoading(false);
     }, []);
 
     if (isLoading) {
@@ -66,7 +79,7 @@ function Sidebars() {
                 <Route exact path='/TambahArtikel' element={<AddInfo tipe={'Artikel'}></AddInfo>}></Route>
                 <Route exact path='/TambahBerita' element={<AddInfo tipe={'Berita'}></AddInfo>}></Route>
                 <Route exact path='/HapusArtikel' element={<DeleteInfo data={artikel}></DeleteInfo>}></Route>
-                <Route exact path='/HapusBerita' element={<DeleteInfo tipe={'Berita'}></DeleteInfo>}></Route>
+                <Route exact path='/HapusBerita' element={<DeleteInfo data={berita}></DeleteInfo>}></Route>
                 <Route exact path='/Beranda' element={<Beranda></Beranda>}></Route>
                 <Route exact path='/TambahKasus' element={<TambahKasus></TambahKasus>}></Route>
                 <Route exact path='/Kasus' element={<Content></Content>}></Route>
