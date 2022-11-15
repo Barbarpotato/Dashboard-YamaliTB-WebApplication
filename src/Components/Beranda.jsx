@@ -96,7 +96,15 @@ function Beranda() {
         datasets: [{
             label: 'Semester 1',
             data: kasus_semester(kasus, '2021', '1'),
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            backgroundColor: ['rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+                'rgba(153, 102, 255, 0.5)',
+                'rgba(200, 159, 64, 0.8)',
+                'rgba(154, 162, 235, 1)',
+                'rgba(0, 0, 128, 1)',
+                'rgba(128, 0, 0, 1)']
         }]
 
     }
@@ -142,8 +150,8 @@ function Beranda() {
                 <Bar data={data} options={options} />
             </div>
 
-            <div className='py-12' style={{ width: '700px', margin: 'auto' }}>
-                <Line data={data} options={options} />
+            <div className='py-12' style={{ width: '550px', margin: 'auto' }}>
+                <Pie data={data} options={options} />
             </div>
 
         </div >
