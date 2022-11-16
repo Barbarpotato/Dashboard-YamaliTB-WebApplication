@@ -155,7 +155,6 @@ function Beranda() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(tahun, semester, jenisdata);
         switch (jenisdata) {
             case 'KasusTb':
                 setTitle('Kasus Tuberkolosis')
