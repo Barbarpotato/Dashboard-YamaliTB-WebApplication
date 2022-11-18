@@ -22,15 +22,17 @@ function unique_tahun(data) {
     return tahun;
 }
 
-function label_kasus(data) {
+function label_kasus(data, tahun, semester) {
     let label = [];
     if (data === undefined) {
         console.log('wait');
     }
     else {
         data.forEach(element => {
-            if (!label.includes(element.kabupatenkota)) {
-                label.push(element.kabupatenkota);
+            if (element.semester === semester) {
+                if (element.tahun === tahun) {
+                    label.push((element.kabupatenkota));
+                }
             }
         });
     }
@@ -43,6 +45,7 @@ function kasus_semester(data, tahun, semester) {
         console.log('wait');
     }
     else {
+
         data.forEach(element => {
             if (element.semester === semester) {
                 if (element.tahun === tahun) {
@@ -125,6 +128,9 @@ function Beranda() {
     const [data, setData] = useState();
 
     useEffect(() => {
+
+        const date = new Date();
+
         axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_artikel.php')
             .then((response) => {
                 setCountArtikel(() => response.data.length);
@@ -144,7 +150,12 @@ function Beranda() {
         axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_kasus.php')
             .then((response) => {
                 setKasus(response.data);
-                response.data.forEach(element => setCountKasus(prev => prev + parseInt(element.kasusTb)));
+                response.data.forEach(element => {
+                    if (element.tahun === String(date.getFullYear())) {
+                        setCountKasus(prev => prev + parseInt(element.kasusTb))
+                    }
+                });
+
             })
             .catch((err) => {
                 return err;
@@ -159,7 +170,7 @@ function Beranda() {
             case 'KasusTb':
                 setTitle('Kasus Tuberkolosis')
                 return setData({
-                    labels: label_kasus(kasus),
+                    labels: label_kasus(kasus, tahun, semester),
                     datasets: [{
                         label: `Semester ${semester}`,
                         data: kasus_semester(kasus, tahun, semester),
@@ -177,7 +188,7 @@ function Beranda() {
             case 'TerdugaTb':
                 setTitle('Terduga Tuberkolosis')
                 return setData({
-                    labels: label_kasus(kasus),
+                    labels: label_kasus(kasus, tahun, semester),
                     datasets: [{
                         label: `Semester ${semester}`,
                         data: terduga_semester(kasus, tahun, semester),
@@ -195,7 +206,7 @@ function Beranda() {
             case 'Berhasil':
                 setTitle('Berhasil Sembuh dari Tuberkolosis');
                 return setData({
-                    labels: label_kasus(kasus),
+                    labels: label_kasus(kasus, tahun, semester),
                     datasets: [{
                         label: `Semester ${semester}`,
                         data: berhasil_semester(kasus, tahun, semester),
@@ -213,7 +224,7 @@ function Beranda() {
             case 'Meninggal':
                 setTitle('Meninggal dari Tuberkolosis');
                 return setData({
-                    labels: label_kasus(kasus),
+                    labels: label_kasus(kasus, tahun, semester),
                     datasets: [{
                         label: `Semester ${semester}`,
                         data: meninggal_semester(kasus, tahun, semester),
@@ -295,7 +306,7 @@ function Beranda() {
                 <div className='bg-blue-400 w-72 h-36 mx-4 rounded-md  flex p-4'>
                     <div className='flex-column'>
                         <p className='text-2xl text-white font-semibold'><i class="fa fa-stethoscope pr-4" aria-hidden="true"></i>{countKasus}</p>
-                        <p className='p-4 text-white text-center text-xl font-light'>Kasus yang terdata pada Yamali TB terkni</p>
+                        <p className='p-4 text-white text-center text-xl font-light'>Kasus yang terdata pada Yamali TB Tahun ini:</p>
                     </div>
                 </div>
             </div>

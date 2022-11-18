@@ -21,7 +21,12 @@ function AddBerita({ tipe }) {
                 tanggal: date, waktu: timestamp, judul: judul, isi_1: berita1, gambar_1: gambar1,
                 isi_2: berita2, gambar_2: gambar2
             }).then(resp => {
-                alert(resp);
+                if (resp.data === 'New records created successfully') {
+                    alert('Data Berhasil Di Input!');
+                }
+                else {
+                    alert('Terjadi Kesalahan!');
+                }
             })
     }
 
@@ -37,7 +42,12 @@ function AddBerita({ tipe }) {
                 tanggal: date, waktu: timestamp, judul: judul, isi_1: berita1, gambar_1: gambar1,
                 isi_2: berita2, gambar_2: gambar2
             }).then(resp => {
-                alert(resp.data);
+                if (resp.data === 'New records created successfully') {
+                    alert('Data Berhasil Di Input!');
+                }
+                else {
+                    alert('Terjadi Kesalahan!');
+                }
             })
     }
 

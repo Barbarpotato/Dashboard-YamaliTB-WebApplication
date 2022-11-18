@@ -1,16 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Styles/table.css';
 import '../Styles/content.css';
+import axios from 'axios';
 
-function DelBerita({ data }) {
+function DelArtikel() {
+
+    // state for controlling the ui showed in the client-side.
+    const [isLoading, setLoading] = useState(true);
+
+    // Artikel data that are going to showed to the client-side.
+    const [artikel, setArtikel] = useState();
 
     // pick up the specific data to edit.
     const [selectData, setSelectData] = useState({});
+
+    // Calling the artikel data api.
+    useEffect(() => {
+        // Runs on the first render
+        // And any time any dependency value changes
+        axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_artikel.php')
+            .then((response) => {
+                setArtikel(response.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                return err;
+            });
+    }, []);
 
     // delete some artikel data
     // ! API NEEDED.
     const handleDelete = (id) => {
         console.log(selectData);
+    }
+
+    if (isLoading) {
+        return (
+            <div className='text-center'>
+                <h1 className='text-4xl text-center'>Memuat Data...</h1>
+            </div>
+        )
     }
 
     return (
@@ -31,7 +60,7 @@ function DelBerita({ data }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((item, idx) => (
+                        {artikel.map((item, idx) => (
                             <tr key={idx}>
                                 <td className='border border-slate-700 text-xl'>{item.id}</td>
                                 <td className='border border-slate-700 text-xl'>{item.tanggal}</td>
@@ -51,14 +80,13 @@ function DelBerita({ data }) {
                                     }
                                 }}><i className="fa fa-eraser" aria-hidden="true"></i> Hapus</button></td>
                             </tr>
-                        ))}
+                        ))
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
-
     )
-
 };
 
-export default DelBerita;
+export default DelArtikel;

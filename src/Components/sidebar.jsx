@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Routes, Route, Link } from 'react-router-dom';
 
@@ -8,50 +7,9 @@ import Beranda from './Beranda';
 import TambahKasus from './TambahKasus';
 import Content from './Kasus';
 import AddInfo from './AddInfo';
-import DeleteInfo from './DeleteInfo';
-import AddBerita from './AddInfo';
-
+import DeleteArtikel from './DeleteArtikel';
+import DeleteBerita from './DeleteBerita';
 function Sidebars() {
-
-    // state for controlling the ui showed in the client-side.
-    const [isLoading, setLoading] = useState(true);
-
-    // Artikel data that are going to showed to the client-side.
-    const [artikel, setArtikel] = useState();
-
-    // Berita data that are going to showed to the client-side.
-    const [berita, setBerita] = useState();
-
-    // Calling the artikel data api.
-    useEffect(() => {
-        // Runs on the first render
-        // And any time any dependency value changes
-        axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_artikel.php')
-            .then((response) => {
-                setArtikel(response.data);
-            })
-            .catch((err) => {
-                return err;
-            });
-
-        axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_berita.php')
-            .then((response) => {
-                setBerita(response.data);
-            })
-            .catch((err) => {
-                return err;
-            });
-
-        setLoading(false);
-    }, []);
-
-    if (isLoading) {
-        return (
-            <div className='text-center'>
-                <h1 className='text-4xl text-center'>Memuat Data...</h1>
-            </div>
-        )
-    }
 
     return (
         <div id='' style={{ display: 'flex', height: '100%' }}>
@@ -78,8 +36,8 @@ function Sidebars() {
             <Routes>
                 <Route exact path='/TambahArtikel' element={<AddInfo tipe={'Artikel'}></AddInfo>}></Route>
                 <Route exact path='/TambahBerita' element={<AddInfo tipe={'Berita'}></AddInfo>}></Route>
-                <Route exact path='/HapusArtikel' element={<DeleteInfo data={artikel}></DeleteInfo>}></Route>
-                <Route exact path='/HapusBerita' element={<DeleteInfo data={berita}></DeleteInfo>}></Route>
+                <Route exact path='/HapusArtikel' element={<DeleteArtikel ></DeleteArtikel>}></Route>
+                <Route exact path='/HapusBerita' element={<DeleteBerita ></DeleteBerita>}></Route>
                 <Route exact path='/Beranda' element={<Beranda></Beranda>}></Route>
                 <Route exact path='/TambahKasus' element={<TambahKasus></TambahKasus>}></Route>
                 <Route exact path='/Kasus' element={<Content></Content>}></Route>
