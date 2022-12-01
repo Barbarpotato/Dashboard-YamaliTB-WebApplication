@@ -11,9 +11,6 @@ function DelBerita() {
     // Artikel data that are going to showed to the client-side.
     const [berita, setBerita] = useState();
 
-    // pick up the specific data to edit.
-    const [selectData, setSelectData] = useState({});
-
     // Calling the artikel data api.
     useEffect(() => {
         // Runs on the first render
@@ -28,10 +25,20 @@ function DelBerita() {
             });
     }, []);
 
-    // delete some artikel data
-    // ! API NEEDED.
+    //? delete some artikel data
     const handleDelete = (id) => {
-        console.log(selectData);
+        axios.post('https://yayasanmptb.or.id.yamalitb.or.id/admin_delete_berita/index.php',
+            { id: id })
+            .then((response) => {
+                alert('Data Berhasil Dihapus!');
+                //? redirect user to the login
+                window.location.reload(false);
+            })
+            .catch((err) => {
+                alert('Terjadi Kesalahan Menghapus Data!');
+                //? redirect user to the login
+                window.location.reload(false);
+            });
     }
 
     if (isLoading) {
@@ -73,10 +80,7 @@ function DelBerita() {
                                 <td className='border border-slate-700 text-xl'><button onClick={() => {
                                     const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
                                     if (confirm) {
-                                        setSelectData({
-                                            id: item.id
-                                        });
-                                        handleDelete(selectData);
+                                        handleDelete(item.id);
                                     }
                                 }}><i className="fa fa-eraser" aria-hidden="true"></i> Hapus</button></td>
                             </tr>

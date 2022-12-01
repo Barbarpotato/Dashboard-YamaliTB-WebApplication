@@ -49,6 +49,21 @@ function Content() {
         // console.log(event.target.kasus.value);
     }
 
+    const handleDelete = (id) => {
+        axios.post('https://yayasanmptb.or.id.yamalitb.or.id/admin_delete_kasus/index.php',
+            { id: id })
+            .then((response) => {
+                alert('Data Berhasil Dihapus!');
+                //? redirect user to the login
+                window.location.reload(false);
+            })
+            .catch((err) => {
+                alert('Terjadi Kesalahan Menghapus Data!');
+                //? redirect user to the login
+                window.location.reload(false);
+            });
+    }
+
     if (isLoading) {
 
         return <div className='text-center'>
@@ -173,12 +188,9 @@ function Content() {
                                     }
                                 }}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Ubah</button></td>
                                 <td className='border border-slate-700 text-xl'><button onClick={() => {
-                                    const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
+                                    const confirm = window.confirm('Apakah Anda Ingin Menghapus Data ini?')
                                     if (confirm) {
-                                        setSelectData({
-                                            id: item.id
-                                        });
-                                        setEdit(true);
+                                        handleDelete(item.id);
                                     }
                                 }}><i className="fa fa-eraser" aria-hidden="true"></i> Hapus</button></td>
                             </tr>

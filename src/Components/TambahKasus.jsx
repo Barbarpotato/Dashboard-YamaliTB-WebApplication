@@ -14,8 +14,12 @@ function AddKasus() {
     const [defaul, setDefaul] = useState();
     const [gagal, setGagal] = useState();
 
+    const [submit, setSubmit] = useState(false);
+
     //! POST METHOD REQUIERD.
     const handleAddKasus = (event) => {
+        //? prevent user spamming the button.
+        setSubmit(true);
         event.preventDefault();
 
         axios.post('https://yayasanmptb.or.id.yamalitb.or.id/admin_post_kasus/index.php',
@@ -98,10 +102,11 @@ function AddKasus() {
                 </div>
                 <div className='flex flex-row'>
 
-                    <div className='py-4 px-2'>
+                    {!submit ? <div className='py-4 px-2'>
                         <button className='rounded w-56 bg-green-500 text-white py-4 px-4 text-lg' type='submit'>
                             Tambah Data</button>
                     </div>
+                        : <></>}
                 </div>
             </form>
         </div >

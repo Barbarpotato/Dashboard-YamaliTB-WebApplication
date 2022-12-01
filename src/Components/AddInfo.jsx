@@ -9,8 +9,13 @@ function AddBerita({ tipe }) {
     const [berita2, setBerita2] = useState();
     const [gambar2, setGambar2] = useState();
 
+    const [submit, setsubmit] = useState(false);
+
     const handleAddArtikel = (event) => {
+        //? prevent user spamming the button.
+        setsubmit(true);
         event.preventDefault();
+
         const date_init = new Date();
         let timestamp = '';
         let date = '';
@@ -31,7 +36,10 @@ function AddBerita({ tipe }) {
     }
 
     const handleAddBerita = (event) => {
+        //? prevent user spamming the button.
+        setsubmit(true);
         event.preventDefault();
+
         const date_init = new Date();
         let timestamp = '';
         let date = '';
@@ -44,6 +52,7 @@ function AddBerita({ tipe }) {
             }).then(resp => {
                 if (resp.data === 'New records created successfully') {
                     alert('Data Berhasil Di Input!');
+                    setsubmit(true);
                 }
                 else {
                     alert('Terjadi Kesalahan!');
@@ -82,10 +91,13 @@ function AddBerita({ tipe }) {
                             <input onChange={e => setGambar2(e.target.value)} className='w-72' type='text' placeholder='Link Gambar 2'></input>
                         </div>
                     </div>
-                    <div className='py-12'>
-                        <button style={{ width: '300px' }} className='rounded bg-green-500 text-white py-4 px-4 text-lg' type='submit'>
-                            Publikasi</button>
-                    </div>
+                    {!submit ?
+                        <div className='py-12'>
+                            <button style={{ width: '300px' }} className='rounded bg-green-500 text-white py-4 px-4 text-lg' type='submit'>
+                                Publikasi</button>
+                        </div> :
+                        <></>
+                    }
                 </form >
             </div>
         </div >
