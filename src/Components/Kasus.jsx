@@ -17,6 +17,7 @@ function Content() {
     // data that are going to showed to the client-side.
     const [data, setData] = useState();
 
+
     // Calling the api.
     useEffect(() => {
         // Runs on the first render
@@ -31,22 +32,38 @@ function Content() {
             });
     }, []);
 
-    // handling edit form data
+    //TODO: handling edit form data
     const handleEdit = (event) => {
         const confirm = window.confirm('Yakin Ingin Memperbaharui Data?')
         if (confirm) {
             event.preventDefault();
-            alert('Berhasil Memperbaharui Data!');
-            console.log(event.target.elements.tahun);
-            setEdit(false);
+            axios.post('https://yayasanmptb.or.id.yamalitb.or.id/admin_update_kasus/index.php', {
+                id: selectData,
+                tahun: parseInt(event.target.tahun.value),
+                semester: parseInt(event.target.semester.value),
+                kabupaten: String(event.target.kabupaten.value),
+                terduga_tb: parseInt(event.target.terduga.value),
+                kasus_tb: parseInt(event.target.kasus.value),
+                berhasil: parseInt(event.target.berhasil.value),
+                meninggal: parseInt(event.target.meninggal.value),
+                defaul: parseInt(event.target.defaul.value),
+                gagal: parseInt(event.target.gagal.value)
+            })
+                .then((resp) => {
+                    alert('Berhasil Memperbaharui Data!');
+                    window.location.reload(false);
+
+                })
+                .catch((err) => {
+                    alert('Gagal Memperbaharui Data!');
+                    window.location.reload(false);
+                });
         }
         else {
             alert('Menolak Memperbaharui Data!');
             setEdit(false);
         }
         event.preventDefault();
-        //! api request needed. METHOD UPDATE
-        // console.log(event.target.kasus.value);
     }
 
     const handleDelete = (id) => {
@@ -86,13 +103,26 @@ function Content() {
                         </div>
                         <div className='py-4 px-4'>
                             <label>Semester: </label>
-                            <input name='semester' className='py-4 px-4 rounded' required value={selectData.semester} />
+                            <select name='semester' id='semester'>
+                                <option key={1} value={'1'}>1</option>
+                                <option key={2} value={'2'}>2</option>
+                            </select>
                         </div>
                     </div>
                     <div className='flex flex-row'>
                         <div className='py-4'>
-                            <label>Kabupaten: </label>
-                            <input name='kabupaten' className='py-4 px-4 rounded w-36' required value={selectData.kabupatenkota} />
+                            <label className='px-4' for="semester">Kabupaten:</label>
+                            <select name='kabupaten' id='kabupaten'>
+                                <option key={1} value={'Kab. Bulukumba'}>Kab. Bulukumba</option>
+                                <option key={2} value={'Kab. Jeneponto'}>Kab. Jeneponto</option>
+                                <option key={3} value={'Kab. Gowa'}>Kab. Gowa</option>
+                                <option key={4} value={'Kab. Maros'}>Kab. Maros</option>
+                                <option key={5} value={'Kab. Bone'}>Kab. Bone</option>
+                                <option key={6} value={'Kab. Wajo'}>Kab. Wajo</option>
+                                <option key={7} value={'Kab. Sidenrang Rappang'}>Kab. Sidenrang Rappang</option>
+                                <option key={8} value={'Kab. Pinrang'}>Kab. Pinrang</option>
+                                <option key={9} value={'Kota Makassar'}>Kota Makassar</option>
+                            </select>
                         </div>
                         <div className='py-4 px-4'>
                             <label>Jumlah Terduga: </label>
@@ -127,6 +157,7 @@ function Content() {
 
                     </div>
                     <div className='flex flex-row'>
+
                         <div className='py-4 px-2'>
                             <button className='rounded w-56 bg-red-500 text-white py-4 px-4 text-lg'
                                 onClick={() => {
@@ -136,10 +167,13 @@ function Content() {
                                 }}>
                                 Batal Perbaharui Data</button>
                         </div>
+
+
                         <div className='py-4 px-2'>
                             <button className='rounded w-56 bg-green-500 text-white py-4 px-4 text-lg' type='submit'>
                                 Perbaharui Data</button>
                         </div>
+
                     </div>
                 </form>
             </div >
@@ -178,12 +212,7 @@ function Content() {
                                 <td className='border border-slate-700 text-xl'><button onClick={() => {
                                     const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
                                     if (confirm) {
-                                        setSelectData({
-                                            id: item.id, tahun: item.tahun, semester: item.semester,
-                                            kabupatenkota: item.kabupatenkota, terdugaTb: item.terdugaTb,
-                                            kasusTb: item.kasusTb, berhasil: item.berhasil, meninggal: item.meninggal,
-                                            defaul: item.defaul, gagal: item.gagal
-                                        });
+                                        setSelectData(item.id);
                                         setEdit(true);
                                     }
                                 }}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Ubah</button></td>
