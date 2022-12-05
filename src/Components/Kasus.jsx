@@ -182,46 +182,44 @@ function Content() {
                 <table  >
                     <thead>
                         <tr>
-                            <th className='p-2 text-xl'>Id</th>
-                            <th className='border border-slate-600 p-2 text-xl'>Tahun</th>
-                            <th className='border border-slate-600 p-2 text-xl'>Semester</th>
-                            <th className='border border-slate-600 p-2 text-xl'>Kabupaten/kota</th>
-                            <th className='border border-slate-600 p-2 text-xl'>TerdugaTb</th>
-                            <th className='border border-slate-600 p-2 text-xl'>KasusTb</th>
-                            <th className='border border-slate-600 p-2 text-xl'>Berhasil</th>
-                            <th className='border border-slate-600 p-2 text-xl'>Meninggal</th>
-                            <th className='border border-slate-600 p-2 text-xl'>Defaul</th>
-                            <th className='border border-slate-600 p-2 text-xl'>Gagal</th>
-                            <th className='border border-slate-600 p-2 text-xl'>Ubah Data</th>
+                            <th className='border-slate-600 p-2 text-lg'>Tahun</th>
+                            <th className='border border-slate-600 p-2text-lg'>Semester</th>
+                            <th className='border border-slate-600 p-2 text-lg'>Kabupaten/kota</th>
+                            <th className='border border-slate-600 p-2 text-lg'>TerdugaTb</th>
+                            <th className='border border-slate-600 p-2 text-lg'>KasusTb</th>
+                            <th className='border border-slate-600 p-2 text-lg'>Berhasil</th>
+                            <th className='border border-slate-600 p-2 text-lg'>Meninggal</th>
+                            <th className='border border-slate-600 p-2 text-lg'>Defaul</th>
+                            <th className='border border-slate-600 p-2 text-lg'>Gagal</th>
+                            <th className='border border-slate-600 p-2 text-lg'>Ubah Data</th>
                             <th className='p-2 text-xl'>Hapus Data</th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map((item, idx) => (
                             <tr key={idx}>
-                                <td className='border border-slate-700 text-xl'>{item.id}</td>
-                                <td className='border border-slate-700 text-xl'>{item.tahun}</td>
-                                <td className='border border-slate-700 text-xl'>{item.semester}</td>
-                                <td className='border border-slate-700 text-xl'>{item.kabupatenkota}</td>
-                                <td className='border border-slate-700 text-xl'>{item.terdugaTb}</td>
-                                <td className='border border-slate-700 text-xl'>{item.kasusTb}</td>
-                                <td className='border border-slate-700 text-xl'>{item.berhasil}</td>
-                                <td className='border border-slate-700 text-xl'>{item.meninggal}</td>
-                                <td className='border border-slate-700 text-xl'>{item.defaul}</td>
-                                <td className='border border-slate-700 text-xl'>{item.gagal}</td>
-                                <td className='border border-slate-700 text-xl'><button onClick={() => {
+                                <td className='p-2  text-xl'>{item.tahun}</td>
+                                <td className='p-2  text-xl'>{item.semester}</td>
+                                <td className='p-2  text-xl'>{item.kabupatenkota}</td>
+                                <td className='p-2  text-xl'>{item.terdugaTb}</td>
+                                <td className='p-2  text-xl'>{item.kasusTb}</td>
+                                <td className='p-2  text-xl'>{item.berhasil}</td>
+                                <td className='p-2  text-xl'>{item.meninggal}</td>
+                                <td className='p-2  text-xl'>{item.defaul}</td>
+                                <td className='p-2  text-xl'>{item.gagal}</td>
+                                <td className='p-2  text-xl'><button className=' text-white rounded-md bg-green-500 p-2 my-2' onClick={() => {
                                     const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
                                     if (confirm) {
                                         setSelectData(item.id);
                                         setEdit(true);
                                     }
-                                }}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Ubah</button></td>
-                                <td className='border border-slate-700 text-xl'><button onClick={() => {
+                                }}>Ubah Data</button></td>
+                                <td className='  text-xl'><button className=' text-white bg-red-500 p-2 rounded-md my-2' onClick={() => {
                                     const confirm = window.confirm('Apakah Anda Ingin Menghapus Data ini?')
                                     if (confirm) {
                                         handleDelete(item.id);
                                     }
-                                }}><i className="fa fa-eraser" aria-hidden="true"></i> Hapus</button></td>
+                                }}> Hapus Data</button></td>
                             </tr>
                         ))}
                     </tbody>

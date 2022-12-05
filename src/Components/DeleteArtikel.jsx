@@ -52,42 +52,26 @@ function DelArtikel() {
     return (
         <div className='content'>
             <div>
-                <table  >
-                    <thead>
-                        <tr>
-                            <th className='p-2 text-xl'>Id</th>
-                            <th className='p-2 text-xl'>Tanggal</th>
-                            <th className='p-2 text-xl'>Waktu</th>
-                            <th className='p-2 text-xl'>Judul</th>
-                            <th className='p-2 text-xl'>Isi 1</th>
-                            <th className='p-2 text-xl'>Gambar 1</th>
-                            <th className='p-2 text-xl'>Isi 2</th>
-                            <th className='p-2 text-xl'>Gambar 2</th>
-                            <th className='p-2 text-xl'>Hapus Data</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {artikel.map((item, idx) => (
-                            <tr key={idx}>
-                                <td className='border border-slate-700 text-xl'>{item.id}</td>
-                                <td className='border border-slate-700 text-xl'>{item.tanggal}</td>
-                                <td className='border border-slate-700 text-xl'>{item.waktu}</td>
-                                <td className='border border-slate-700 text-xl'>{item.judul}</td>
-                                <td className='border border-slate-700 text-xl'>{item.isi_1.length > 70 ? item.isi_1.substring(0, 70) + '...' : item.isi_1}</td>
-                                <td className='border border-slate-700 text-xl'><a href={item.gambar_1} target='blank'>{item.gambar_1}</a></td>
-                                <td className='border border-slate-700 text-xl'>{item.isi_2.length > 70 ? item.isi_2.substring(0, 70) + '...' : item.isi_2}</td>
-                                <td className='border border-slate-700 text-xl'><a href={item.gambar_2} target='blank'>{item.gambar_2}</a></td>
-                                <td className='border border-slate-700 text-xl'><button onClick={() => {
-                                    const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
-                                    if (confirm) {
-                                        handleDelete(item.id);
-                                    }
-                                }}><i className="fa fa-eraser" aria-hidden="true"></i> Hapus</button></td>
-                            </tr>
-                        ))
-                        }
-                    </tbody>
-                </table>
+                {artikel.map((item, idx) => (
+                    <div key={item.id} className='bg-white mx-24 my-8 p-4'>
+                        <div className='bg-slate-50 shadow-2xl'>
+                            <h1 key={idx} className='text-black font-bold text-2xl p-4'>{item.judul}</h1>
+                            <p className='text-left px-4 text-xl font-semibold'>Waktu Upload: {item.waktu}</p>
+                            <p className='text-sm text-justify px-4 py-2'>{item.isi_1}</p>
+                            <p className='font-semibold text-sm text-left px-4'>Link Gambar1: <a className='underline text-blue-500' href={item.gambar_1}>{item.gambar_1}</a></p>
+                            <p className='text-sm text-justify px-4 py-4'>{item.isi_2}</p>
+                            {item.gambar_2 ? <p className='font-semibold text-sm text-left px-4'>Link Gambar2: {item.gambar_2}</p> : <></>}
+                            <hr className='px-2 bg-blackmy-4 mx-auto w-48 h-1 bg-gray-100 rounded border-0 md:my-10 dark:bg-gray-700'></hr>
+                            <button className='ml-[80%] my-4 text-lg mx-4 rounded-md text-white bg-red-500 p-2 text-right' onClick={() => {
+                                const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
+                                if (confirm) {
+                                    handleDelete(item.id);
+                                }
+                            }}>Hapus Data</button>
+                        </div>
+                    </div>
+                ))
+                }
             </div>
         </div>
     )
