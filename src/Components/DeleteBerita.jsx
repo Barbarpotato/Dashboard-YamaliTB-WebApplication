@@ -12,14 +12,25 @@ function DelBerita() {
     // Artikel data that are going to showed to the client-side.
     const [berita, setBerita] = useState();
 
+    const [isi_1, setIsi_1] = useState();
+    const [isi_2, setIsi_2] = useState();
+
     // Calling the artikel data api.
     useEffect(() => {
+        let isi_1 = [];
+        let isi_2 = [];
         // Runs on the first render
         // And any time any dependency value changes
         axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_berita.php')
             .then((response) => {
+                response.data.forEach((elem) => {
+                    isi_1.push(elem.isi_1.replace(/(\r\n|\r|\n)/g, '<br>'))
+                    isi_2.push(elem.isi_2.replace(/(\r\n|\r|\n)/g, '<br>'))
+                })
                 //? get the latest version from database
                 setBerita(Array.from(response.data).reverse());
+                setIsi_1(Array.from(isi_1).reverse());
+                setIsi_2(Array.from(isi_2).reverse());
                 setLoading(false);
             })
             .catch((err) => {
@@ -69,9 +80,9 @@ function DelBerita() {
                         <div className='bg-slate-50 shadow-2xl'>
                             <h1 className='text-black font-bold text-2xl p-4'>{item.judul}</h1>
                             <p className='text-left px-4 text-xl font-semibold'>Waktu Upload: {item.waktu}</p>
-                            <p className='text-sm text-justify px-4 py-2'>{item.isi_1}</p>
+                            <p className='text-sm text-justify px-4 py-2' dangerouslySetInnerHTML={{ __html: isi_1[idx] }}></p>
                             <p className='font-semibold text-sm text-left px-4'>Link Gambar1: <a className='underline text-blue-500' href={item.gambar_1}>{item.gambar_1}</a></p>
-                            <p className='text-sm text-justify px-4 py-4'>{item.isi_2}</p>
+                            <p className='text-sm text-justify px-4 py-4' dangerouslySetInnerHTML={{ __html: isi_2[idx] }}></p>
                             {item.gambar_2 ? <p className='font-semibold text-sm text-left px-4'>Link Gambar2: {item.gambar_2}</p> : <></>}
                             <hr className='px-2 bg-blackmy-4 mx-auto w-48 h-1 bg-gray-100 rounded border-0 md:my-10 dark:bg-gray-700'></hr>
                             <button className='ml-[80%] my-4 text-lg mx-4 rounded-md text-white bg-red-500 p-2 text-right' onClick={() => {

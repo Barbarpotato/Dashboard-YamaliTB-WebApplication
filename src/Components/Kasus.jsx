@@ -132,7 +132,7 @@ function Content() {
                     <div className='flex flex-row'>
                         <div className='py-4'>
                             <label>KasusTb: </label>
-                            <input name='kasus' className='py-4 px-4 rounded w-36' required value={selectData.kasusTb} />
+                            <input name='kasus' className='py-4 px-4 rounded w-36' required placeholder={selectData.kasusTb} />
                         </div>
                         <div className='py-4 px-4'>
                             <label>Berhasil: </label>
@@ -142,7 +142,7 @@ function Content() {
                     <div className='flex flex-row'>
                         <div className='py-4'>
                             <label>Meninggal: </label>
-                            <input name='meninggal' className='py-4 px-4 rounded w-36' required value={selectData.meninggal} />
+                            <input name='meninggal' className='py-4 px-4 rounded w-36' required placeholder={selectData.meninggal} />
                         </div>
                         <div className='py-4 px-4'>
                             <label>Defaul: </label>
@@ -204,7 +204,7 @@ function Content() {
                                 <td className='p-2  text-xl'><button className=' text-white rounded-md bg-green-500 p-2 my-2' onClick={() => {
                                     const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
                                     if (confirm) {
-                                        setSelectData(item.id);
+                                        setSelectData(item);
                                         setEdit(true);
                                     }
                                 }}>Ubah Data</button></td>
