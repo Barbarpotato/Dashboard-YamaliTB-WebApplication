@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../Styles/content.css';
 import '../Styles/table.css';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
 function Content() {
 
@@ -92,7 +93,14 @@ function Content() {
     return (
         // Ternary Operator. edit is true render the edit comp otherwise render the table.
         //!! edit component still a dummy
-        <div div className='content' >
+        <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+                duration: 0.8,
+                ease: [0, 0.71, 0.2, 1.01]
+            }}
+            className='content' >
             {edit ? <div className='opacity-80 update mx-[25%] my-[12%] bg-slate-100 rounded-md p-4'>
                 <h1 className='text-center text-xl font-semibold px-2' > Perbaharui Data Kasus</h1>
                 <form onSubmit={handleEdit}>
@@ -219,7 +227,7 @@ function Content() {
                     </tbody>
                 </table>
             }
-        </div>
+        </motion.div>
     )
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../Styles/content.css';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
 function AddBerita({ tipe }) {
 
@@ -64,10 +65,18 @@ function AddBerita({ tipe }) {
 
     return (
         <div className='flex' style={{ overflowY: 'scroll', height: '100vh', width: '100%' }}>
-            <div className='mx-[20%]'>
-                <form onSubmit={tipe === 'Artikel' ? handleAddArtikel : handleAddBerita}>
+            <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                    duration: 0.8,
+                    ease: [0, 0.71, 0.2, 1.01]
+                }}
+                className='mx-[20%]'>
+                <div form onSubmit={tipe === 'Artikel' ? handleAddArtikel : handleAddBerita
+                }>
                     <div className='flex flex-col'>
-                        <h1 className='text-3xl py-12 font-bold p-4'>Tambah {tipe === 'Artikel' ? 'Artikel' : 'Berita'} Halaman</h1>
+                        <h1 className='text-3xl py-12 font-bold p-4'>*Tambah {tipe === 'Artikel' ? 'Artikel' : 'Berita'} Halaman</h1>
                     </div>
                     <div className='flex flex-row'>
                         <div className='px-2 flex flex-row items-center'>
@@ -133,16 +142,17 @@ function AddBerita({ tipe }) {
                             *Mohon Perhatikan Format Link Google Drive saat melakukan input!
                         </p>
                     </div>
-                    {!submit ?
-                        <div className='py-8'>
-                            <button style={{ width: '150px' }}
-                                className='rounded-md bg-green-500 text-white p-4 text-sm font-semibold hover:bg-green-600' type='submit'>
-                                Publikasikan {tipe === 'Artikel' ? 'Artikel' : 'Berita'}</button>
-                        </div> :
-                        <></>
+                    {
+                        !submit ?
+                            <div className='py-8'>
+                                <button style={{ width: '150px' }}
+                                    className='rounded-md bg-green-500 text-white p-4 text-sm font-semibold hover:bg-green-600' type='submit'>
+                                    Publikasikan {tipe === 'Artikel' ? 'Artikel' : 'Berita'}</button>
+                            </div> :
+                            <></>
                     }
-                </form >
-            </div >
+                </div >
+            </motion.div >
         </div >
     )
 }
