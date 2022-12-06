@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../Styles/table.css';
 import '../Styles/content.css';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
 function DelBerita() {
 
@@ -45,8 +46,9 @@ function DelBerita() {
 
     if (isLoading) {
         return (
-            <div className='text-center'>
-                <h1 className='text-4xl text-center'>Memuat Data...</h1>
+            <div className='ml-[35%] mt-[15%]'>
+                <div className="lds-roller text-center"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <p style={{ color: 'rgb(39, 41, 61, 1)' }} className='text-center font-bold text-black text-lg'>Memuat...</p>
             </div>
         )
     }
@@ -55,9 +57,17 @@ function DelBerita() {
         <div className='content'>
             <div>
                 {berita.map((item, idx) => (
-                    <div key={item.id} className='bg-white mx-24 my-8 p-4'>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{
+                            delay: 0.5,
+                            x: { duration: 1 },
+                            default: { ease: "linear" }
+                        }}
+                        key={item.id} className='bg-white mx-24 my-8 p-4'>
                         <div className='bg-slate-50 shadow-2xl'>
-                            <h1 key={idx} className='text-black font-bold text-2xl p-4'>{item.judul}</h1>
+                            <h1 className='text-black font-bold text-2xl p-4'>{item.judul}</h1>
                             <p className='text-left px-4 text-xl font-semibold'>Waktu Upload: {item.waktu}</p>
                             <p className='text-sm text-justify px-4 py-2'>{item.isi_1}</p>
                             <p className='font-semibold text-sm text-left px-4'>Link Gambar1: <a className='underline text-blue-500' href={item.gambar_1}>{item.gambar_1}</a></p>
@@ -71,7 +81,7 @@ function DelBerita() {
                                 }
                             }}>{" "}Hapus Data{" "}</button>
                         </div>
-                    </div>
+                    </motion.div>
                 ))
                 }
             </div>

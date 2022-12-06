@@ -52,7 +52,6 @@ function Content() {
                 .then((resp) => {
                     alert('Berhasil Memperbaharui Data!');
                     window.location.reload(false);
-
                 })
                 .catch((err) => {
                     alert('Gagal Memperbaharui Data!');
@@ -82,14 +81,15 @@ function Content() {
     }
 
     if (isLoading) {
-
-        return <div className='text-center'>
-            <h1 className='text-4xl text-center'>Memuat Data...</h1>
-        </div>
+        return (
+            <div className='ml-[35%] mt-[15%]'>
+                <div className="lds-roller text-center"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <p style={{ color: 'rgb(39, 41, 61, 1)' }} className='text-center font-bold text-black text-lg'>Memuat...</p>
+            </div>
+        )
     }
 
     return (
-
         // Ternary Operator. edit is true render the edit comp otherwise render the table.
         //!! edit component still a dummy
         <div div className='content' >
@@ -154,10 +154,8 @@ function Content() {
                             <label>Gagal: </label>
                             <input name='gagal' className='py-4 px-4 rounded w-36' required value={selectData.gagal} />
                         </div>
-
                     </div>
                     <div className='flex flex-row'>
-
                         <div className='py-4 px-2'>
                             <button className='rounded w-56 bg-red-500 text-white py-4 px-4 text-lg'
                                 onClick={() => {
@@ -167,17 +165,13 @@ function Content() {
                                 }}>
                                 Batal Perbaharui Data</button>
                         </div>
-
-
                         <div className='py-4 px-2'>
                             <button className='rounded w-56 bg-green-500 text-white py-4 px-4 text-lg' type='submit'>
                                 Perbaharui Data</button>
                         </div>
-
                     </div>
                 </form>
             </div >
-
                 :
                 <table  >
                     <thead>

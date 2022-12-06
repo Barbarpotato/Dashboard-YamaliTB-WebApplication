@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Styles/content.css';
-import { Bar, Line, Pie, Doughnut, PolarArea, Radar } from 'react-chartjs-2';
+import { Bar, Pie, Doughnut, PolarArea, Radar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import { CategoryScale } from "chart.js";
+import { motion } from 'framer-motion';
 
 Chart.register(CategoryScale);
 
@@ -240,7 +241,6 @@ function Beranda() {
                     }]
                 })
         }
-
     };
 
     const options = {
@@ -272,7 +272,6 @@ function Beranda() {
                 'rgba(0, 0, 128, 1)',
                 'rgba(128, 0, 0, 1)']
         }]
-
     }
 
     if (isLoading) {
@@ -289,38 +288,72 @@ function Beranda() {
                 <h1 className='text-4xl font-semibold'>Selamat Datang</h1>
             </div>
             <div className='pt-12 flex flex-row justify-center'>
-                <div className='bg-orange-400 w-72 h-36 mx-4 rounded-md flex p-4'>
-                    <div className='flex-column'>
+                <motion.div
+                    initial={{ opacity: 0, scale: 1 }}
+                    whileInView={{ opacity: 1 }}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{
+                        x: { duration: 0.1 },
+                        type: 'spring'
+                    }} className='bg-orange-400 w-72 h-36 mx-4 rounded-md flex p-4 shadow-2xl'>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{
+                            delay: 0.2,
+                            x: { duration: 1 },
+                            default: { ease: "linear" }
+                        }} className='flex-column'>
                         <p className='text-2xl text-white font-semibold'><i className="fa fa-list pr-4" aria-hidden="true"></i>{countArtikel}</p>
                         <p className='p-4 text-white text-center text-xl font-light'>Yang terdapat pada Artikel Yamali terkini</p>
-                    </div>
-                </div>
-
-                <div className='bg-green-400 w-72 h-36 mx-4 rounded-md flex p-4'>
+                    </motion.div>
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, scale: 1 }}
+                    whileInView={{ opacity: 1 }}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{
+                        x: { duration: 0.1 },
+                        type: 'spring'
+                    }}
+                    className='bg-green-400 w-72 h-36 mx-4 rounded-md flex p-4 shadow-2xl'>
                     <div className='flex-column'>
                         <p className='text-2xl text-white font-semibold'><i class="fa fa-list-alt pr-4" aria-hidden="true"></i>{countBerita}</p>
                         <p className='p-4 text-white text-center text-xl font-light'>Yang terdapat pada Berita Yamali terkini</p>
                     </div>
-                </div>
-
-                <div className='bg-blue-400 w-72 h-36 mx-4 rounded-md  flex p-4'>
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, scale: 1 }}
+                    whileInView={{ opacity: 1 }}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{
+                        x: { duration: 0.1 },
+                        type: 'spring'
+                    }}
+                    className='bg-blue-400 w-72 h-36 mx-4 rounded-md flex p-4 shadow-2xl'>
                     <div className='flex-column'>
                         <p className='text-2xl text-white font-semibold'><i class="fa fa-stethoscope pr-4" aria-hidden="true"></i>{countKasus}</p>
                         <p className='p-4 text-white text-center text-xl font-light'>Kasus yang terdata pada Yamali TB Tahun ini:</p>
                     </div>
-                </div>
+                </motion.div>
             </div>
-
-            <div className='py-12'>
-                <div className='text-center text-2xl opacity-60 font-semibold mb-2'>Pilih Kategori Data Kasus:</div>
-                <form onSubmit={handleSubmit}>
+            <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{
+                    delay: 0.2,
+                    x: { duration: 1 },
+                    default: { ease: "linear" }
+                }}
+                className='py-8 my-12 rounded-2xl shadow-2xl mx-24'>
+                <div className='text-center text-2xl opacity-60 font-semibold mb-2'>Pilih Kategori Data Kasus Tb Yang Ingin Dilihat:</div>
+                <form className='text-center' onSubmit={handleSubmit}>
                     <div className='py-2'>
                         <label className='px-4' for="tahun">Tahun Kasus</label>
                         <select onChange={(e) => setTahun(e.target.value)} name="tahun" id="tahun">
                             {unique_tahun(kasus).map((value, idx) =>
                                 <option key={idx} value={value}>{value}</option>
                             )}
-
                         </select>
                     </div>
                     <div className='py-2'>
@@ -339,38 +372,64 @@ function Beranda() {
                             <option key={4} value={'Meninggal'}>Meninggal</option>
                         </select>
                     </div>
-
                     <div>
                         <button className='rounded-md opacity-70 p-2 text-lg my-2 bg-green-500 text-white' type="submit">Tampilkan Data</button>
                     </div>
                 </form>
+            </motion.div>
+            <div className='flex flex-wrap'>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{
+                        delay: 0.5,
+                        x: { duration: 1 },
+                        default: { ease: "linear" }
+                    }}
+                    className='bg-slate-50 ' style={{ width: '550px', margin: 'auto' }}>
+                    <Bar data={data == null ? init_data : data} options={options} />
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{
+                        delay: 0.5,
+                        x: { duration: 1 },
+                        default: { ease: "linear" }
+                    }} className=' bg-slate-50 ' style={{ width: '350px', margin: 'auto' }}>
+                    <Pie data={data == null ? init_data : data} options={options} />
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{
+                        delay: 0.5,
+                        x: { duration: 1 },
+                        default: { ease: "linear" }
+                    }} className=' bg-slate-50  ' style={{ width: '450px', margin: 'auto' }}>
+                    <PolarArea data={data == null ? init_data : data} options={options} />
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{
+                        delay: 0.5,
+                        x: { duration: 1 },
+                        default: { ease: "linear" }
+                    }} className=' bg-slate-50 ' style={{ width: '350px', margin: 'auto' }}>
+                    <Doughnut data={data == null ? init_data : data} options={options} />
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{
+                        delay: 0.5,
+                        x: { duration: 1 },
+                        default: { ease: "linear" }
+                    }} className=' bg-slate-50  ' style={{ width: '450px', margin: 'auto' }}>
+                    <Radar data={data == null ? init_data : data} options={options} />
+                </motion.div>
             </div>
-
-
-            <div className='py-6' style={{ width: '700px', margin: 'auto' }}>
-                <Bar data={data == null ? init_data : data} options={options} />
-            </div>
-
-            <div className='py-6' style={{ width: '700px', margin: 'auto' }}>
-                <Line data={data == null ? init_data : data} options={options} />
-            </div>
-
-            <div className='py-12' style={{ width: '550px', margin: 'auto' }}>
-                <Pie data={data == null ? init_data : data} options={options} />
-            </div>
-
-            <div className='py-12' style={{ width: '550px', margin: 'auto' }}>
-                <Doughnut data={data == null ? init_data : data} options={options} />
-            </div>
-
-            <div className='py-12' style={{ width: '550px', margin: 'auto' }}>
-                <PolarArea data={data == null ? init_data : data} options={options} />
-            </div>
-
-            <div className='py-12' style={{ width: '550px', margin: 'auto' }}>
-                <Radar data={data == null ? init_data : data} options={options} />
-            </div>
-
         </div >
     )
 }

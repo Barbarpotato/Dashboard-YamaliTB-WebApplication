@@ -38,6 +38,7 @@ function Sidebars() {
             </Sidebar >
 
             <Routes>
+                <Route index element={<Beranda></Beranda>}></Route>
                 <Route exact path='/TambahArtikel' element={<AddInfo tipe={'Artikel'}></AddInfo>}></Route>
                 <Route exact path='/TambahBerita' element={<AddInfo tipe={'Berita'}></AddInfo>}></Route>
                 <Route exact path='/HapusArtikel' element={<DeleteArtikel ></DeleteArtikel>}></Route>

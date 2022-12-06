@@ -2,6 +2,7 @@ import './App.css';
 
 import Sidebar from './Components/sidebar';
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 function App() {
 
@@ -35,23 +36,45 @@ function App() {
   }
 
   return (
-    <div className='App'>
-      {!validate ? <div className='text-center'>
-
-        <div><h1 className='text-white text-5xl py-14 mb-24'>Yamali TB Admin</h1></div>
+    <div
+      className={!validate ? 'fill-window' : ''}>
+      {!validate ? <motion.div
+        initial={{ opacity: 0, y: -200 }}
+        whileInView={{ opacity: 1, y: 20 }}
+        transition={{
+          delay: 0.5,
+          x: { duration: 1 },
+          default: { ease: "linear" }
+        }}
+        className='text-center'>
+        <div><h1 className='text-white text-5xl py-14 mb-12 mt-12 font-bold'>Selamat Datang Kembali <br></br></h1></div>
         <form onSubmit={handleSubmit}>
           <div>
-            <input className='py-4 px-4 rounded w-96' placeholder='  Username...' type="text" onChange={(e) => setName(e.target.value)} value={name} />
+            <motion.input
+              whileFocus={{ scale: 1.2 }}
+              transition={{
+                type: 'spring'
+              }}
+              className='py-4 px-4 rounded w-96' placeholder='  Nama Pengguna...' type="text" onChange={(e) => setName(e.target.value)} value={name} />
           </div>
           <div className='py-4'>
-            <input className='py-4 px-4 rounded w-96' placeholder='  Password...' type="password" onChange={(e) => setPass(e.target.value)} value={pass} />
+            <motion.input
+              whileFocus={{ scale: 1.2 }}
+              transition={{
+                type: 'spring'
+              }} className='py-4 px-4 rounded w-96' placeholder='  Kata Sandi...' type="password" onChange={(e) => setPass(e.target.value)} value={pass} />
           </div>
           <div>
-            <button className='rounded w-96 bg-red-500 text-white py-4 px-4 text-lg' type='submit'>Login</button>
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              transition={{
+                type: 'spring'
+              }}
+              className='rounded w-96 bg-green-500 text-white py-4 px-4 text-lg' type='submit'>Masuk</motion.button>
           </div>
         </form>
 
-      </div> : <></>
+      </motion.div> : <></>
       }
 
       {validate ? <Sidebar></Sidebar> : <></>}
