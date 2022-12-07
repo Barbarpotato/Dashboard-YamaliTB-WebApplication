@@ -123,7 +123,8 @@ function AddBerita({ tipe }) {
                             style={{ "overflow": "auto", borderColor: 'white', width: '550px' }}
                             type='text' placeholder='Link Gambar 1'></input>
                         <p class=" text-pink-600 text-sm">
-                            *Mohon Perhatikan Format Link Google Drive saat melakukan input!
+                            *Mohon Perhatikan Format Link Google Drive saat melakukan input!<br></br>
+                            *Link Google Drive Wajib Bersifat Publik.
                         </p>
                     </div>
                     <div className='px-2 flex flex-col items-start'>
@@ -139,7 +140,8 @@ function AddBerita({ tipe }) {
                             style={{ "overflow": "auto", borderColor: 'white', width: '550px' }}
                             type='text' placeholder='Link Gambar 2'></input>
                         <p class="text-pink-600 text-sm">
-                            *Mohon Perhatikan Format Link Google Drive saat melakukan input!
+                            *Mohon Perhatikan Format Link Google Drive saat melakukan input!<br></br>
+                            *Link Google Drive Wajib Bersifat Publik.
                         </p>
                     </div>
                     {

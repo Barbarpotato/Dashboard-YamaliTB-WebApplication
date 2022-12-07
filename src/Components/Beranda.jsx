@@ -129,9 +129,7 @@ function Beranda() {
     const [data, setData] = useState();
 
     useEffect(() => {
-
         const date = new Date();
-
         axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_artikel.php')
             .then((response) => {
                 setCountArtikel(() => response.data.length);
@@ -156,12 +154,10 @@ function Beranda() {
                         setCountKasus(prev => prev + parseInt(element.kasusTb))
                     }
                 });
-
             })
             .catch((err) => {
                 return err;
             });
-
         setLoading(false);
     }, []);
 
@@ -276,8 +272,9 @@ function Beranda() {
 
     if (isLoading) {
         return (
-            <div className='text-center'>
-                <h1 className='text-4xl text-center'>Memuat Data...</h1>
+            <div className='ml-[35%] mt-[15%]'>
+                <div className="lds-roller text-center"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <p style={{ color: 'rgb(39, 41, 61, 1)' }} className='text-center font-bold text-black text-lg'>Memuat...</p>
             </div>
         )
     }
@@ -373,7 +370,7 @@ function Beranda() {
                         </select>
                     </div>
                     <div>
-                        <button className='rounded-md opacity-70 p-2 text-lg my-2 bg-green-500 text-white' type="submit">Tampilkan Data</button>
+                        <button className=' rounded-md bg-green-500 text-white p-4 text-sm font-semibold hover:bg-green-600' type="submit">Tampilkan Data</button>
                     </div>
                 </form>
             </motion.div>

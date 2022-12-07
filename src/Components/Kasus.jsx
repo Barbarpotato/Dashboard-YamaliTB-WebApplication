@@ -101,71 +101,78 @@ function Content() {
                 ease: [0, 0.71, 0.2, 1.01]
             }}
             className='content' >
-            {edit ? <div className='opacity-80 update mx-[25%] my-[12%] bg-slate-100 rounded-md p-4'>
-                <h1 className='text-center text-xl font-semibold px-2' > Perbaharui Data Kasus</h1>
+            {edit ? <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                    duration: 0.8,
+                    ease: [0, 0.71, 0.2, 1.01]
+                }}
+                className='rounded-2xl  update mx-[25%] bg-slate-50 shadow-2xl p-4'>
+                <h1 className='text-left text-3xl font-semibold px-2 py-4' >*Perbaharui Data Kasus</h1>
                 <form onSubmit={handleEdit}>
-                    <div className='flex flex-row'>
-                        <div className='py-4'>
-                            <label>Tahun: </label>
-                            <input name='tahun' className='py-4 px-4 rounded' required pattern='20\d{2}' placeholder={selectData.tahun} />
-                        </div>
-                        <div className='py-4 px-4'>
-                            <label>Semester: </label>
-                            <select name='semester' id='semester'>
-                                <option key={1} value={'1'}>1</option>
-                                <option key={2} value={'2'}>2</option>
-                            </select>
-                        </div>
+                    <label className='px-2'>Tahun: </label>
+                    <input name='tahun'
+                        className='py-4 px-4 rounded h-12 w-64'
+                        required
+                        pattern='20\d{2}'
+                        placeholder={selectData.tahun} />
+                    <div className='py-4 px-2'>
+                        <label>Semester: </label>
+                        <select
+                            className='w-64 h-12'
+                            name='semester' id='semester'>
+                            <option key={1} value={'1'}>1</option>
+                            <option key={2} value={'2'}>2</option>
+                        </select>
                     </div>
-                    <div className='flex flex-row'>
-                        <div className='py-4'>
-                            <label className='px-4' for="semester">Kabupaten:</label>
-                            <select name='kabupaten' id='kabupaten'>
-                                <option key={1} value={'Kab. Bulukumba'}>Kab. Bulukumba</option>
-                                <option key={2} value={'Kab. Jeneponto'}>Kab. Jeneponto</option>
-                                <option key={3} value={'Kab. Gowa'}>Kab. Gowa</option>
-                                <option key={4} value={'Kab. Maros'}>Kab. Maros</option>
-                                <option key={5} value={'Kab. Bone'}>Kab. Bone</option>
-                                <option key={6} value={'Kab. Wajo'}>Kab. Wajo</option>
-                                <option key={7} value={'Kab. Sidenrang Rappang'}>Kab. Sidenrang Rappang</option>
-                                <option key={8} value={'Kab. Pinrang'}>Kab. Pinrang</option>
-                                <option key={9} value={'Kota Makassar'}>Kota Makassar</option>
-                            </select>
-                        </div>
-                        <div className='py-4 px-4'>
-                            <label>Jumlah Terduga: </label>
-                            <input name='terduga' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' placeholder={selectData.terdugaTb} />
-                        </div>
+                    <div className='py-4'>
+                        <label className='px-2' for="semester">Kabupaten:</label>
+                        <select name='kabupaten' id='kabupaten' className='h-12 w-56'>
+                            <option key={1} value={'Kab. Bulukumba'}>Kab. Bulukumba</option>
+                            <option key={2} value={'Kab. Jeneponto'}>Kab. Jeneponto</option>
+                            <option key={3} value={'Kab. Gowa'}>Kab. Gowa</option>
+                            <option key={4} value={'Kab. Maros'}>Kab. Maros</option>
+                            <option key={5} value={'Kab. Bone'}>Kab. Bone</option>
+                            <option key={6} value={'Kab. Wajo'}>Kab. Wajo</option>
+                            <option key={7} value={'Kab. Sidenrang Rappang'}>Kab. Sidenrang Rappang</option>
+                            <option key={8} value={'Kab. Pinrang'}>Kab. Pinrang</option>
+                            <option key={9} value={'Kota Makassar'}>Kota Makassar</option>
+                        </select>
                     </div>
-                    <div className='flex flex-row'>
-                        <div className='py-4'>
-                            <label>KasusTb: </label>
-                            <input name='kasus' className='py-4 px-4 rounded w-36' required placeholder={selectData.kasusTb} />
-                        </div>
-                        <div className='py-4 px-4'>
-                            <label>Berhasil: </label>
-                            <input name='berhasil' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' placeholder={selectData.berhasil} />
-                        </div>
+                    <div className='py-4 px-2'>
+                        <label>Jumlah Terduga: </label>
+                        <input name='terduga'
+                            pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-56 h-12' placeholder={selectData.terdugaTb} />
                     </div>
-                    <div className='flex flex-row'>
-                        <div className='py-4'>
-                            <label>Meninggal: </label>
-                            <input name='meninggal' className='py-4 px-4 rounded w-36' required placeholder={selectData.meninggal} />
-                        </div>
-                        <div className='py-4 px-4'>
-                            <label>Defaul: </label>
-                            <input name='defaul' pattern='\d{1,}' title='data input tidak valid' required className='py-4 px-4 rounded w-36' placeholder={selectData.defaul} />
-                        </div>
+                    <div className='py-4 px-2'>
+                        <label>KasusTb: </label>
+                        <input name='kasus' className='py-4 px-2 rounded w-64 h-12' required placeholder={selectData.kasusTb} />
                     </div>
-                    <div className='flex flex-row'>
-                        <div className='py-4'>
-                            <label>Gagal: </label>
-                            <input name='gagal' className='py-4 px-4 rounded w-36' required value={selectData.gagal} />
-                        </div>
+                    <div className='py-4 px-2'>
+                        <label>Berhasil: </label>
+                        <input
+                            name='berhasil' pattern='\d{1,}' title='data input tidak valid' required
+                            className='py-4 px-4 rounded w-64 h-12' placeholder={selectData.berhasil} />
                     </div>
+                    <div className='py-4 px-2'>
+                        <label>Meninggal: </label>
+                        <input name='meninggal'
+                            className='py-4 px-4 rounded w-64 h-12' required placeholder={selectData.meninggal} />
+                    </div>
+                    <div className='py-4 px-2'>
+                        <label>Defaul: </label>
+                        <input name='defaul' pattern='\d{1,}' title='data input tidak valid' required
+                            className='py-4 px-4 rounded w-64 h-12' placeholder={selectData.defaul} />
+                    </div>
+                    <div className='py-4 px-2'>
+                        <label>Gagal: </label>
+                        <input name='gagal' className='py-4 px-4 rounded w-64 h-12' required placeholder={selectData.gagal} />
+                    </div>
+
                     <div className='flex flex-row'>
                         <div className='py-4 px-2'>
-                            <button className='rounded w-56 bg-red-500 text-white py-4 px-4 text-lg'
+                            <button className='rounded-md bg-red-500 text-white p-4 text-sm font-semibold hover:bg-red-600'
                                 onClick={() => {
                                     // back to the table component after user reject update data
                                     alert('Menolak Memperbaharui Data!');
@@ -174,12 +181,13 @@ function Content() {
                                 Batal Perbaharui Data</button>
                         </div>
                         <div className='py-4 px-2'>
-                            <button className='rounded w-56 bg-green-500 text-white py-4 px-4 text-lg' type='submit'>
+                            <button className='rounded-md bg-green-500 text-white p-4 text-sm font-semibold hover:bg-green-600'
+                                type='submit'>
                                 Perbaharui Data</button>
                         </div>
                     </div>
                 </form>
-            </div >
+            </motion.div >
                 :
                 <table  >
                     <thead>
@@ -209,14 +217,14 @@ function Content() {
                                 <td className='p-2  text-xl'>{item.meninggal}</td>
                                 <td className='p-2  text-xl'>{item.defaul}</td>
                                 <td className='p-2  text-xl'>{item.gagal}</td>
-                                <td className='p-2  text-xl'><button className=' text-white rounded-md bg-green-500 p-2 my-2' onClick={() => {
+                                <td className='p-2  text-xl'><button className=' rounded-md bg-green-500 text-white p-4 text-sm font-semibold hover:bg-green-600' onClick={() => {
                                     const confirm = window.confirm('Apakah Anda Ingin Mengubah Data ini?')
                                     if (confirm) {
                                         setSelectData(item);
                                         setEdit(true);
                                     }
                                 }}>Ubah Data</button></td>
-                                <td className='  text-xl'><button className=' text-white bg-red-500 p-2 rounded-md my-2' onClick={() => {
+                                <td className='  text-xl'><button className=' rounded-md bg-red-500 text-white p-4 text-sm font-semibold hover:bg-red-600' onClick={() => {
                                     const confirm = window.confirm('Apakah Anda Ingin Menghapus Data ini?')
                                     if (confirm) {
                                         handleDelete(item.id);
