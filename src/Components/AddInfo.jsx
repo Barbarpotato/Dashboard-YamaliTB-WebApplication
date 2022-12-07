@@ -8,8 +8,8 @@ function AddBerita({ tipe }) {
     const [judul, setJudul] = useState();
     const [berita1, setBerita1] = useState();
     const [gambar1, setGambar1] = useState();
-    const [berita2, setBerita2] = useState('');
-    const [gambar2, setGambar2] = useState('');
+    const [berita2, setBerita2] = useState(' ');
+    const [gambar2, setGambar2] = useState(' ');
 
     const [submit, setsubmit] = useState(false);
 
@@ -17,7 +17,7 @@ function AddBerita({ tipe }) {
         //? prevent user spamming the button.
         setsubmit(true);
         event.preventDefault();
-
+        console.log('testing')
         const date_init = new Date();
         let timestamp = '';
         let date = '';
@@ -73,7 +73,7 @@ function AddBerita({ tipe }) {
                     ease: [0, 0.71, 0.2, 1.01]
                 }}
                 className='mx-[20%]'>
-                <div form onSubmit={tipe === 'Artikel' ? handleAddArtikel : handleAddBerita
+                <form onSubmit={tipe === 'Artikel' ? handleAddArtikel : handleAddBerita
                 }>
                     <div className='flex flex-col'>
                         <h1 className='text-3xl py-12 font-bold p-4'>*Tambah {tipe === 'Artikel' ? 'Artikel' : 'Berita'} Halaman</h1>
@@ -153,7 +153,7 @@ function AddBerita({ tipe }) {
                             </div> :
                             <></>
                     }
-                </div >
+                </form>
             </motion.div >
         </div >
     )
