@@ -35,8 +35,8 @@ function Sidebars() {
                         <MenuItem icon={<FiRefreshCcw></FiRefreshCcw>} routerLink={<Link to='/Kasus'></Link>} className='menu text-left'>Hapus & Edit Data</MenuItem>
                     </SubMenu>
                     <MenuItem icon={<FiDollarSign></FiDollarSign>}
-                        className='menu text-left'><a href='https://docs.google.com/forms/d/12lQKJdN7bLKPJxvKJSKZIJikUq3Reu0ZbBY2HobJd-U/edit#responses'>Data Donasi Website</a></MenuItem>
-                    <MenuItem icon={<FiUsers></FiUsers>} className='menu text-left'><a href='https://docs.google.com/forms/d/1nH2VMgOk5B1Tym4J0H0JP6Ir0YWVT6MCeniSsK0-fGk/edit#responses'>Data Pendaftaran Kader</a></MenuItem>
+                        className='menu text-left'><a href='https://docs.google.com/forms/d/1nH2VMgOk5B1Tym4J0H0JP6Ir0YWVT6MCeniSsK0-fGk/edit#responses'>Data Donasi Website</a></MenuItem>
+                    <MenuItem icon={<FiUsers></FiUsers>} className='menu text-left'><a href='https://docs.google.com/forms/d/12lQKJdN7bLKPJxvKJSKZIJikUq3Reu0ZbBY2HobJd-U/edit#responses'>Data Pendaftaran Kader</a></MenuItem>
                     <MenuItem icon={<FaExclamation></FaExclamation>} routerLink={<Link to="/Petunjuk"></Link>} className='menu text-left'>Informasi Dashboard</MenuItem>
                 </Menu>
             </Sidebar >

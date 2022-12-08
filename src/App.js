@@ -97,7 +97,7 @@ function App() {
               transition={{
                 type: 'spring'
               }}
-              value={sessionStorage.getItem('username')}
+              defaultValue={sessionStorage.getItem('username')}
               className='py-4 px-4 rounded w-96' placeholder='  Nama Pengguna...' type="text" />
           </div>
           <div className='py-4'>
@@ -106,7 +106,7 @@ function App() {
               transition={{
                 type: 'spring'
               }}
-              value={sessionStorage.getItem('password')}
+              defaultValue={sessionStorage.getItem('password')}
               className='py-4 px-4 rounded w-96' placeholder='  Kata Sandi...' type="password" />
           </div>
           <div>

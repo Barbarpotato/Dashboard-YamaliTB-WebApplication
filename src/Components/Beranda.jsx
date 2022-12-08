@@ -303,7 +303,7 @@ function Beranda() {
                             x: { duration: 1 },
                             default: { ease: "linear" }
                         }} className='flex-column'>
-                        <p className='text-2xl text-white font-semibold'><i className="fa fa-list pr-4" aria-hidden="true"></i>{countArtikel}</p>
+                        <p className='text-2xl text-white font-semibold'>{countArtikel}</p>
                         <p className='p-4 text-white text-center text-xl font-light'>Yang terdapat pada Artikel Yamali terkini</p>
                     </motion.div>
                 </motion.div>
@@ -317,7 +317,7 @@ function Beranda() {
                     }}
                     className='bg-green-400 w-72 h-36 mx-4 rounded-md flex p-4 shadow-2xl'>
                     <div className='flex-column'>
-                        <p className='text-2xl text-white font-semibold'><i class="fa fa-list-alt pr-4" aria-hidden="true"></i>{countBerita}</p>
+                        <p className='text-2xl text-white font-semibold'>{countBerita}</p>
                         <p className='p-4 text-white text-center text-xl font-light'>Yang terdapat pada Berita Yamali terkini</p>
                     </div>
                 </motion.div>
@@ -331,7 +331,7 @@ function Beranda() {
                     }}
                     className='bg-blue-400 w-72 h-36 mx-4 rounded-md flex p-4 shadow-2xl'>
                     <div className='flex-column'>
-                        <p className='text-2xl text-white font-semibold'><i class="fa fa-stethoscope pr-4" aria-hidden="true"></i>{countKasus}</p>
+                        <p className='text-2xl text-white font-semibold'>{countKasus}</p>
                         <p className='p-4 text-white text-center text-xl font-light'>Kasus yang terdata pada Yamali TB Tahun ini:</p>
                     </div>
                 </motion.div>
@@ -348,7 +348,7 @@ function Beranda() {
                 <div className='text-center text-2xl opacity-60 font-semibold mb-2'>Pilih Kategori Data Kasus Tb Yang Ingin Dilihat:</div>
                 <form className='text-center' onSubmit={handleSubmit}>
                     <div className='py-2'>
-                        <label className='px-4' for="tahun">Tahun Kasus</label>
+                        <label className='px-4' >Tahun Kasus</label>
                         <select onChange={(e) => setTahun(e.target.value)} name="tahun" id="tahun">
                             {unique_tahun(kasus).map((value, idx) =>
                                 <option key={idx} value={value}>{value}</option>
@@ -356,16 +356,16 @@ function Beranda() {
                         </select>
                     </div>
                     <div className='py-2'>
-                        <label className='px-4' for="semester">Semester Kasus</label>
+                        <label className='px-4' >Semester Kasus</label>
                         <select onChange={(e) => setSemester(e.target.value)} name='semester' id='semester'>
                             <option key={1} value={'1'}>1</option>
                             <option key={2} value={'2'}>2</option>
                         </select>
                     </div>
                     <div className='py-2'>
-                        <label className='px-4' for="jenisdata">Jenis Data</label>
+                        <label className='px-4' >Jenis Data</label>
                         <select onChange={(e) => setJenisData(e.target.value)} name='jenisdata' id='jenisdata'>
-                            <option selected key={1} value={'TerdugaTb'}>Terduga TB</option>
+                            <option key={1} defaultValue={'TerdugaTb'}>Terduga TB</option>
                             <option key={2} value={'KasusTb'}>Kasus TB</option>
                             <option key={3} value={'Berhasil'}>Berhasil</option>
                             <option key={4} value={'Meninggal'}>Meninggal</option>

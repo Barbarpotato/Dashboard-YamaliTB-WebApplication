@@ -58,8 +58,8 @@ function AddKasus() {
                         style={{ width: '530px' }} />
                 </div>
                 <div className='py-4'>
-                    <label className='text-base font-semibold px-2
-                    ' for="semester">Semester:</label>
+                    <label className='text-base font-semibold px-2'
+                    >Semester:</label>
                     <select
                         className="p-4 focus:border-sky-500 focus:ring-1 focus:ring-sky-500
                         invalid:border-pink-500 invalid:text-pink-600
@@ -71,7 +71,7 @@ function AddKasus() {
                     </select>
                 </div>
                 <div className="py-4">
-                    <label className='text-base font-semibold px-2' for="semester">Kabupaten:</label>
+                    <label className='text-base font-semibold px-2'>Kabupaten:</label>
                     <select
                         className="p-4 focus:border-sky-500 focus:ring-1 focus:ring-sky-500
                         invalid:border-pink-500 invalid:text-pink-600
