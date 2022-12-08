@@ -17,9 +17,8 @@ const DeleteInfo = ({ tipe }) => {
     useEffect(() => {
         let isi_1 = [];
         let isi_2 = [];
-        //? Removing the dependency
-        //? Prevent not rendering when clicking 
-        //? berita to artikel | artikel to berita
+        //? added props dependency whenever props state changes
+        //? the use effect will be running.
         switch (tipe) {
             case 'Artikel':
                 axios.get('https://yayasanmptb.or.id.yamalitb.or.id/read_artikel.php')
@@ -54,8 +53,10 @@ const DeleteInfo = ({ tipe }) => {
                         return err;
                     });
                 break;
+            default:
+                return null
         }
-    }, [info]);
+    }, [tipe]);
 
     //? delete some artikel data.
     const handleDeleteArtikel = (id) => {
@@ -114,9 +115,9 @@ const DeleteInfo = ({ tipe }) => {
                         <div className='bg-slate-50 shadow-2xl'>
                             <h1 className='text-black font-bold text-2xl p-4'>{item.judul}</h1>
                             <p className='text-left px-4 text-xl font-semibold'>Waktu Upload: {item.waktu}</p>
-                            <p className='text-sm text-justify px-4 py-2' dangerouslySetInnerHTML={{ __html: isi_1[idx] }}></p>
+                            <p style={{}} className='isi text-sm text-justify px-4 py-2' dangerouslySetInnerHTML={{ __html: isi_1[idx] }}></p>
                             <p className='font-semibold text-sm text-left px-4'>Link Gambar1: <a className='underline text-blue-500' href={item.gambar_1}>{item.gambar_1}</a></p>
-                            <p className='text-sm text-justify px-4 py-4' dangerouslySetInnerHTML={{ __html: isi_2[idx] }}></p>
+                            <p className='isi text-sm text-justify px-4 py-4' dangerouslySetInnerHTML={{ __html: isi_2[idx] }}></p>
                             {item.gambar_2 ? <p className='font-semibold text-sm text-left px-4'>Link Gambar2: {item.gambar_2}</p> : <></>}
                             <hr className='px-2 bg-blackmy-4 mx-auto w-48 h-1 bg-gray-100 rounded border-0 md:my-10 dark:bg-gray-700'></hr>
                             {tipe === 'Artikel' ?

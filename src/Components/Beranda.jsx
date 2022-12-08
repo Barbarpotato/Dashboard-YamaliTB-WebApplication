@@ -11,7 +11,7 @@ Chart.register(CategoryScale);
 function unique_tahun(data) {
     let tahun = [];
     if (data === undefined) {
-        console.log('wait');
+
     }
     else {
         data.forEach(element => {
@@ -236,6 +236,8 @@ function Beranda() {
                             'rgba(128, 0, 0, 1)']
                     }]
                 })
+            default:
+                return null
         }
     };
 

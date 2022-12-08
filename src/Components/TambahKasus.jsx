@@ -5,16 +5,6 @@ import '../Styles/content.css';
 
 function AddKasus() {
 
-    const [tahun, setTahun] = useState();
-    const [semester, setSemester] = useState("1");
-    const [kabupaten, setKabupaten] = useState('Kab. Bulukumba');
-    const [terduga, setTerduga] = useState();
-    const [kasus, setKasus] = useState();
-    const [berhasil, setBerhasil] = useState();
-    const [meninggal, setMeninggal] = useState();
-    const [defaul, setDefaul] = useState();
-    const [gagal, setGagal] = useState();
-
     const [submit, setSubmit] = useState(false);
 
     //! POST METHOD REQUIERD.
@@ -22,6 +12,16 @@ function AddKasus() {
         //? prevent user spamming the button.
         setSubmit(true);
         event.preventDefault();
+
+        const tahun = event.target[0].value;
+        const semester = event.target[1].value;
+        const kabupaten = event.target[2].value;
+        const terduga = event.target[3].value;
+        const kasus = event.target[4].value;
+        const berhasil = event.target[5].value;
+        const meninggal = event.target[6].value;
+        const defaul = event.target[7].value;
+        const gagal = event.target[8].value;
 
         axios.post('https://yayasanmptb.or.id.yamalitb.or.id/admin_post_kasus/index.php',
             {
@@ -55,8 +55,7 @@ function AddKasus() {
                         className="p-4 focus:border-sky-500 focus:ring-1 focus:ring-sky-500
                         invalid:border-pink-500 invalid:text-pink-600
                         focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
-                        style={{ width: '530px' }}
-                        onChange={e => setTahun(e.target.value)} name='tahun' required />
+                        style={{ width: '530px' }} />
                 </div>
                 <div className='py-4'>
                     <label className='text-base font-semibold px-2
@@ -66,7 +65,7 @@ function AddKasus() {
                         invalid:border-pink-500 invalid:text-pink-600
                         focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                         style={{ width: '500px' }}
-                        onChange={(e) => setSemester(e.target.value)} name='semester' id='semester'>
+                        name='semester' id='semester'>
                         <option key={1} value={'1'}>1</option>
                         <option key={2} value={'2'}>2</option>
                     </select>
@@ -78,7 +77,7 @@ function AddKasus() {
                         invalid:border-pink-500 invalid:text-pink-600
                         focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                         style={{ width: '490px' }}
-                        onChange={(e) => setKabupaten(e.target.value)} name='kabupaten' id='kabupaten'>
+                        name='kabupaten' id='kabupaten'>
                         <option key={1} value={'Kab. Bulukumba'}>Kab. Bulukumba</option>
                         <option key={2} value={'Kab. Jeneponto'}>Kab. Jeneponto</option>
                         <option key={3} value={'Kab. Gowa'}>Kab. Gowa</option>
@@ -99,7 +98,7 @@ function AddKasus() {
                         invalid:border-pink-500 invalid:text-pink-600
                         focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                         style={{ width: '450px' }}
-                        onChange={e => setTerduga(e.target.value)} name='terduga' required />
+                        name='terduga' required />
                 </div>
                 <div className='py-4'>
                     <label className='text-base font-semibold px-2'>KasusTb: </label>
@@ -110,7 +109,7 @@ function AddKasus() {
                         invalid:border-pink-500 invalid:text-pink-600
                         focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                         style={{ width: '500px' }}
-                        onChange={e => setKasus(e.target.value)} name='kasus' required />
+                        name='kasus' required />
                 </div>
                 <div className='py-4'>
                     <label className='text-base font-semibold px-2'> Berhasil: </label>
@@ -120,7 +119,7 @@ function AddKasus() {
                         invalid:border-pink-500 invalid:text-pink-600
                         focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                         style={{ width: '500px' }}
-                        onChange={e => setBerhasil(e.target.value)} name='berhasil' title='Data Harus Berbentuk Angka' required />
+                        name='berhasil' title='Data Harus Berbentuk Angka' required />
                 </div>
                 <div className='py-4'>
                     <label className='text-base font-semibold px-2'>Meninggal: </label>
@@ -130,7 +129,7 @@ function AddKasus() {
                         invalid:border-pink-500 invalid:text-pink-600
                         focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                         style={{ width: '500px' }}
-                        onChange={e => setMeninggal(e.target.value)} name='meninggal' required />
+                        name='meninggal' required />
                 </div>
                 <div className='py-4'>
                     <label className='text-base font-semibold px-2'>Defaul: </label>
@@ -139,7 +138,7 @@ function AddKasus() {
                         invalid:border-pink-500 invalid:text-pink-600
                         focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                         style={{ width: '500px' }}
-                        onChange={e => setDefaul(e.target.value)} name='defaul' pattern='\d{1,}' title='Data Harus Berbentuk Angka' required />
+                        name='defaul' pattern='\d{1,}' title='Data Harus Berbentuk Angka' required />
                 </div>
                 <div className='py-4'>
                     <label className='text-base font-semibold px-2'>Gagal: </label>
@@ -150,7 +149,7 @@ function AddKasus() {
                         invalid:border-pink-500 invalid:text-pink-600
                         focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                         style={{ width: '500px' }}
-                        onChange={e => setGagal(e.target.value)} name='gagal' required />
+                        name='gagal' required />
                 </div>
                 {!submit ? <div className='py-4 px-2'>
                     <button className='rounded-md bg-green-500 text-white p-4 text-sm font-semibold hover:bg-green-600' type='submit'>
