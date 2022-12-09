@@ -7,7 +7,6 @@ import TambahKasus from './TambahKasus';
 import Content from './Kasus';
 import AddInfo from './AddInfo';
 import DeleteInfo from './DeleteInfo';
-import Guide from './Guide';
 import {
     FiHome, FiBookOpen, FiFile,
     FiUsers, FiPlus, FiTrash, FiRefreshCcw,
@@ -37,7 +36,7 @@ function Sidebars() {
                     <MenuItem icon={<FiDollarSign></FiDollarSign>}
                         className='menu text-left'><a href='https://docs.google.com/forms/d/1nH2VMgOk5B1Tym4J0H0JP6Ir0YWVT6MCeniSsK0-fGk/edit#responses'>Data Donasi Website</a></MenuItem>
                     <MenuItem icon={<FiUsers></FiUsers>} className='menu text-left'><a href='https://docs.google.com/forms/d/12lQKJdN7bLKPJxvKJSKZIJikUq3Reu0ZbBY2HobJd-U/edit#responses'>Data Pendaftaran Kader</a></MenuItem>
-                    <MenuItem icon={<FaExclamation></FaExclamation>} routerLink={<Link to="/Petunjuk"></Link>} className='menu text-left'>Informasi Dashboard</MenuItem>
+
                 </Menu>
             </Sidebar >
 
@@ -50,7 +49,6 @@ function Sidebars() {
                 <Route exact path='/Beranda' element={<Beranda></Beranda>}></Route>
                 <Route exact path='/TambahKasus' element={<TambahKasus></TambahKasus>}></Route>
                 <Route exact path='/Kasus' element={<Content></Content>}></Route>
-                <Route exact path='/Petunjuk' element={<Guide></Guide>}></Route>
             </Routes>
         </div >
     );
