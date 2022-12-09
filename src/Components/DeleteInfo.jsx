@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../Styles/content.css';
 import { motion } from "framer-motion"
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const DeleteInfo = ({ tipe }) => {
     //? state for controlling the ui showed in the client-side.
@@ -12,6 +13,9 @@ const DeleteInfo = ({ tipe }) => {
 
     const [isi_1, setIsi_1] = useState();
     const [isi_2, setIsi_2] = useState();
+
+    //? re-rendering the page after user delete some data.
+    const [refresh, setRefresh] = useState(false);
 
     //? Calling the artikel data api.
     useEffect(() => {
@@ -56,7 +60,7 @@ const DeleteInfo = ({ tipe }) => {
             default:
                 return null
         }
-    }, [tipe]);
+    }, [tipe, refresh]);
 
     //? delete some artikel data.
     const handleDeleteArtikel = (id) => {
@@ -64,13 +68,10 @@ const DeleteInfo = ({ tipe }) => {
             { id: id })
             .then((response) => {
                 alert('Data Berhasil Dihapus!');
-                //? redirect user to the login
-                window.location.reload(false);
+                setRefresh(!refresh);
             })
             .catch((err) => {
                 alert('Terjadi Kesalahan Menghapus Data!');
-                //? redirect user to the login
-                window.location.reload(false);
             });
     }
 
@@ -80,13 +81,10 @@ const DeleteInfo = ({ tipe }) => {
             { id: id })
             .then((response) => {
                 alert('Data Berhasil Dihapus!');
-                //? redirect user to the login
-                window.location.reload(false);
+                setRefresh(!refresh);
             })
             .catch((err) => {
                 alert('Terjadi Kesalahan Menghapus Data!');
-                //? redirect user to the login
-                window.location.reload(false);
             });
     }
 
@@ -111,14 +109,14 @@ const DeleteInfo = ({ tipe }) => {
                             x: { duration: 1 },
                             default: { ease: "linear" }
                         }}
-                        key={item.id} className='bg-white mx-24 my-8 p-4'>
-                        <div className='bg-slate-50 shadow-2xl'>
+                        key={item.id} className='isi bg-white mx-24 my-8 p-4'>
+                        <div className='isibg-slate-50 shadow-2xl'>
                             <h1 className='text-black font-bold text-2xl p-4'>{item.judul}</h1>
                             <p className='text-left px-4 text-xl font-semibold'>Waktu Upload: {item.waktu}</p>
                             <p style={{}} className='isi text-sm text-justify px-4 py-2' dangerouslySetInnerHTML={{ __html: isi_1[idx] }}></p>
                             <p className='font-semibold text-sm text-left px-4'>Link Gambar1: <a className='underline text-blue-500' href={item.gambar_1}>{item.gambar_1}</a></p>
                             <p className='isi text-sm text-justify px-4 py-4' dangerouslySetInnerHTML={{ __html: isi_2[idx] }}></p>
-                            {item.gambar_2 ? <p className='font-semibold text-sm text-left px-4'>Link Gambar2: {item.gambar_2}</p> : <></>}
+                            {item.gambar_2 ? <p className='font-semibold text-sm text-left px-4'><a className='underline text-blue-500' href={item.gambar_2}>{item.gambar_2}</a></p> : <></>}
                             <hr className='px-2 bg-blackmy-4 mx-auto w-48 h-1 bg-gray-100 rounded border-0 md:my-10 dark:bg-gray-700'></hr>
                             {tipe === 'Artikel' ?
                                 <button
@@ -131,13 +129,14 @@ const DeleteInfo = ({ tipe }) => {
                                     }}>Hapus Data</button>
                                 :
                                 <button
+                                    Link
                                     className='ml-[80%] my-4 mx-4 rounded-md bg-red-500 text-white p-4 text-sm font-semibold hover:bg-red-600'
                                     onClick={() => {
                                         const confirm = window.confirm('Apakah Anda Ingin Menghapus Data ini?')
                                         if (confirm) {
                                             handleDeleteBerita(item.id);
                                         }
-                                    }}>Hapus Data</button>
+                                    }}><Link to={'/Beranfa'}>Hapus Data</Link></button>
                             }
                         </div>
                     </motion.div>

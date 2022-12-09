@@ -32,6 +32,7 @@ function AddKasus() {
                     alert('Data Berhasil Di Input!');
                 }
                 else {
+                    console.log(resp)
                     alert("Terjadi Kesalahan!")
                 }
             })

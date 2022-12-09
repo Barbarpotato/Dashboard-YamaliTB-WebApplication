@@ -18,6 +18,7 @@ function Content() {
     // data that are going to showed to the client-side.
     const [data, setData] = useState();
 
+    const [refresh, setRefresh] = useState(false);
 
     // Calling the api.
     useEffect(() => {
@@ -31,7 +32,7 @@ function Content() {
             .catch((err) => {
                 return err;
             });
-    }, []);
+    }, [refresh]);
 
     //TODO: handling edit form data
     const handleEdit = (event) => {
@@ -39,7 +40,7 @@ function Content() {
         if (confirm) {
             event.preventDefault();
             axios.post('https://yayasanmptb.or.id.yamalitb.or.id/admin_update_kasus/index.php', {
-                id: selectData,
+                id: selectData.id,
                 tahun: parseInt(event.target.tahun.value),
                 semester: parseInt(event.target.semester.value),
                 kabupaten: String(event.target.kabupaten.value),
@@ -52,11 +53,11 @@ function Content() {
             })
                 .then((resp) => {
                     alert('Berhasil Memperbaharui Data!');
-                    window.location.reload(false);
+                    setEdit(false);
                 })
                 .catch((err) => {
                     alert('Gagal Memperbaharui Data!');
-                    window.location.reload(false);
+                    setEdit(false);
                 });
         }
         else {
@@ -71,13 +72,10 @@ function Content() {
             { id: id })
             .then((response) => {
                 alert('Data Berhasil Dihapus!');
-                //? redirect user to the login
-                window.location.reload(false);
+                setRefresh(!refresh);
             })
             .catch((err) => {
                 alert('Terjadi Kesalahan Menghapus Data!');
-                //? redirect user to the login
-                window.location.reload(false);
             });
     }
 
