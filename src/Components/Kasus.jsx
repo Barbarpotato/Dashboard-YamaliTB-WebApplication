@@ -53,6 +53,7 @@ function Content() {
             })
                 .then((resp) => {
                     alert('Berhasil Memperbaharui Data!');
+                    setRefresh(!refresh)
                     setEdit(false);
                 })
                 .catch((err) => {
