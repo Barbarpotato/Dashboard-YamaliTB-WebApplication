@@ -12,7 +12,7 @@ import {
     FiUsers, FiPlus, FiTrash, FiRefreshCcw,
     FiDollarSign
 } from "react-icons/fi";
-import { FaRegHospital, FaExclamation } from "react-icons/fa";
+import { FaRegHospital } from "react-icons/fa";
 
 function Sidebars() {
     return (
@@ -44,8 +44,8 @@ function Sidebars() {
                 <Route index element={<Beranda></Beranda>}></Route>
                 <Route exact path='/TambahArtikel' element={<AddInfo tipe={'Artikel'}></AddInfo>}></Route>
                 <Route exact path='/TambahBerita' element={<AddInfo tipe={'Berita'}></AddInfo>}></Route>
-                <Route exact path='/HapusArtikel' element={<DeleteInfo tipe={'Artikel'}></DeleteInfo>}></Route>
-                <Route exact path='/HapusBerita' element={<DeleteInfo tipe={'Berita'}></DeleteInfo>}></Route>
+                <Route exact path='/HapusArtikel' element={<DeleteInfo key={1} tipe={'Artikel'}></DeleteInfo>}></Route>
+                <Route exact path='/HapusBerita' element={<DeleteInfo key={2} tipe={'Berita'}></DeleteInfo>}></Route>
                 <Route exact path='/Beranda' element={<Beranda></Beranda>}></Route>
                 <Route exact path='/TambahKasus' element={<TambahKasus></TambahKasus>}></Route>
                 <Route exact path='/Kasus' element={<Content></Content>}></Route>
