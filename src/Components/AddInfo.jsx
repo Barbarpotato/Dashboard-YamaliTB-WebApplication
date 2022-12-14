@@ -1,29 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import '../Styles/content.css';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
 function AddInfo({ tipe }) {
 
-    //? state for prevent user to click button more than once.
-    //? which may caused lagged in application.
-    const [submit, setsubmit] = useState(false);
+    //? Manipulate Input Value
+    const inputRef = useRef(null);
 
     const handleAddArtikel = (event) => {
         //? prevent user spamming the button.
-        setsubmit(true);
         event.preventDefault();
+        inputRef.current.value = "";
 
         const judul = event.target[0].value;
         const berita1 = event.target[1].value;
-        const gambar1 = event.target[2].value;
-        const berita2 = event.target[3].value;
+        const berita2 = event.target[2].value;
+        const gambar1 = event.target[3].value;
         const gambar2 = event.target[4].value;
         const date_init = new Date();
         let timestamp = '';
         let date = '';
         date += date_init.getFullYear() + '-' + (date_init.getMonth() + 1) + '-' + date_init.getDate();
         timestamp += date + ' ' + date_init.getHours() + ':' + date_init.getMinutes() + ':' + date_init.getSeconds();
+
         axios.post('https://yayasanmptb.or.id.yamalitb.or.id/admin_post_artikel/index.php',
             {
                 tanggal: date, waktu: timestamp, judul: judul, isi_1: berita1, gambar_1: gambar1,
@@ -40,13 +40,13 @@ function AddInfo({ tipe }) {
 
     const handleAddBerita = (event) => {
         //? prevent user spamming the button.
-        setsubmit(true);
         event.preventDefault();
+        inputRef.current.value = "";
 
         const judul = event.target[0].value;
         const berita1 = event.target[1].value;
-        const gambar1 = event.target[2].value;
-        const berita2 = event.target[3].value;
+        const berita2 = event.target[2].value;
+        const gambar1 = event.target[3].value;
         const gambar2 = event.target[4].value;
         const date_init = new Date();
         let timestamp = '';
@@ -60,7 +60,6 @@ function AddInfo({ tipe }) {
             }).then(resp => {
                 if (resp.data === 'New records created successfully') {
                     alert('Data Berhasil Di Input!');
-                    setsubmit(true);
                 }
                 else {
                     alert('Terjadi Kesalahan!');
@@ -86,7 +85,7 @@ function AddInfo({ tipe }) {
                     <div className='flex flex-row'>
                         <div className='px-2 flex flex-row items-center'>
                             <label className='mr-4'>Judul: </label>
-                            <input className=' mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                            <input ref={inputRef} className=' mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
                             disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                             invalid:border-b-pink-500 invalid:text-pink-600
@@ -149,15 +148,11 @@ function AddInfo({ tipe }) {
                             *Link Google Drive Wajib Bersifat Publik.
                         </p>
                     </div>
-                    {
-                        !submit ?
-                            <div className='py-8'>
-                                <button style={{ width: '150px' }}
-                                    className='rounded-md bg-green-500 text-white p-4 text-sm font-semibold hover:bg-green-600' type='submit'>
-                                    Publikasikan {tipe === 'Artikel' ? 'Artikel' : 'Berita'}</button>
-                            </div> :
-                            <></>
-                    }
+                    <div className='py-8'>
+                        <button style={{ width: '150px' }}
+                            className='rounded-md bg-green-500 text-white p-4 text-sm font-semibold hover:bg-green-600' type='submit'>
+                            Publikasikan {tipe === 'Artikel' ? 'Artikel' : 'Berita'}</button>
+                    </div>
                 </form>
             </motion.div >
         </div >

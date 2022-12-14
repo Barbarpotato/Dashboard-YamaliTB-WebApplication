@@ -115,7 +115,7 @@ const DeleteInfo = ({ tipe }) => {
                             <p style={{}} className='isi text-sm text-justify px-4 py-2' dangerouslySetInnerHTML={{ __html: isi_1[idx] }}></p>
                             <p className='font-semibold text-sm text-left px-4'>Link Gambar1: <a className='underline text-blue-500' href={item.gambar_1}>{item.gambar_1}</a></p>
                             <p className='isi text-sm text-justify px-4 py-4' dangerouslySetInnerHTML={{ __html: isi_2[idx] }}></p>
-                            {item.gambar_2 ? <p className='font-semibold text-sm text-left px-4'><a className='underline text-blue-500' href={item.gambar_2}>{item.gambar_2}</a></p> : <></>}
+                            {item.gambar_2 ? <p className='font-semibold text-sm text-left px-4'>Link Gambar2: <a className='underline text-blue-500' href={item.gambar_2}>{item.gambar_2}</a></p> : <></>}
                             <hr className='px-2 bg-blackmy-4 mx-auto w-48 h-1 bg-gray-100 rounded border-0 md:my-10 dark:bg-gray-700'></hr>
                             <button
                                 className='ml-[80%] my-4 mx-4 rounded-md bg-red-500 text-white p-4 text-sm font-semibold hover:bg-red-600'
