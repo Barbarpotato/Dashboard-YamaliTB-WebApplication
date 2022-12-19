@@ -11,7 +11,6 @@ function AddInfo({ tipe }) {
     const handleAddArtikel = (event) => {
         //? prevent user spamming the button.
         event.preventDefault();
-        inputRef.current.value = "";
 
         const judul = event.target[0].value;
         const berita1 = event.target[1].value;
@@ -31,6 +30,7 @@ function AddInfo({ tipe }) {
             }).then(resp => {
                 if (resp.data === 'New records created successfully') {
                     alert('Data Berhasil Di Input!');
+                    inputRef.current.value = "";
                 }
                 else {
                     alert('Terjadi Kesalahan!');
@@ -41,7 +41,6 @@ function AddInfo({ tipe }) {
     const handleAddBerita = (event) => {
         //? prevent user spamming the button.
         event.preventDefault();
-        inputRef.current.value = "";
 
         const judul = event.target[0].value;
         const berita1 = event.target[1].value;
@@ -60,6 +59,7 @@ function AddInfo({ tipe }) {
             }).then(resp => {
                 if (resp.data === 'New records created successfully') {
                     alert('Data Berhasil Di Input!');
+                    inputRef.current.value = "";
                 }
                 else {
                     alert('Terjadi Kesalahan!');

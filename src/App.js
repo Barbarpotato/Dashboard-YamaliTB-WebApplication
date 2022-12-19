@@ -8,7 +8,7 @@ function App() {
   const [validate, setValidate] = useState(false);
 
   //! Data Dummy for validation.
-  const data = ['darma', "darma123"];
+  const data = ['darma', "123"];
 
   //? Prevent User accessing from the mobile state.
   const [width, setWidth] = useState(window.innerWidth);
