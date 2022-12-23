@@ -20,6 +20,7 @@ function Content() {
 
     const [refresh, setRefresh] = useState(false);
 
+
     // Calling the api.
     useEffect(() => {
         // Runs on the first render
