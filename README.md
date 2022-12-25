@@ -34,7 +34,10 @@ The next component, namely DeleteInfo.js, in this component, we do the GET metho
 The Case component in the Components folder provides updated data. However, implementing the POST method is the same as the DeleteInfo.js scenario where data is sent to the source location, then the source handles updating the data. Handling of updating data is handled by the PHP Script that has been provided.
 
 ### TambahKasus.js
-The last component is AddKasus.js which is similar to AddInfo.js, but has a few more inputs than AddInfo.js.
+The next component, AddKasus.js, is similar to AddInfo.js, but has more input than AddInfo.js. This component also has a props parameter which can have 2 types of props, namely the normal type and the total type, the normal type will be used by the case and the total will be used for the total case itself. So that 1 component is used by 2 different UIs.
+
+### TotalKasus.js
+The last component is TotalKasus.js, in this component the Pie module from react-chart-js2 is used to display all the attributes needed to be seen such as caseTb, success, default, failure, etc. The logic for using it is exactly the same as the case.js component, but the difference is that case uses the element table tag, while total cases uses Pie as the data representation.
 
 # Module CheatSheet.
 
